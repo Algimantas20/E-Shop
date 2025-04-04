@@ -129,11 +129,6 @@ namespace E_Shop.Forms
             await Task.Delay(2);
             this.Hide();
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
 

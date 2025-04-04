@@ -6,8 +6,10 @@ namespace E_Shop.Components
 {
     public partial class A_SidePanelButton : Button
     {
+        #region -> Variables
         private Icon _icon;
         private bool _isActive;
+        #endregion
 
         public A_SidePanelButton()
         {
@@ -23,7 +25,7 @@ namespace E_Shop.Components
             this.FlatAppearance.MouseOverBackColor = Color.FromArgb(49, 51, 56);
 
         }
-
+        #region -> Properties
         public Icon Button_Icon
         {
             get { return _icon; }
@@ -44,5 +46,7 @@ namespace E_Shop.Components
                 this.BackColor = _isActive ? Color.FromArgb(49, 51, 56) : Color.FromArgb(29, 30, 33);
             }
         }
+
+        #endregion
     }
 }

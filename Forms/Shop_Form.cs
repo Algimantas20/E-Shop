@@ -1,13 +1,14 @@
 ﻿using E_Shop.Classes;
 using E_Shop.Components;
+
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
+using System.Data;
+using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace E_Shop.Forms
 {
@@ -16,6 +17,7 @@ namespace E_Shop.Forms
         public Shop_Form()
         {
             InitializeComponent();
+
             new A_Form(this).Apply(shop_Panel, side_Panel);
             this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
             this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
@@ -23,11 +25,23 @@ namespace E_Shop.Forms
             if (User.Privilege != "Admin")
                 addProducts_Button.Visible = false;
         }
-
+        #region -> Private Methods
         private void Shop_Form_Load(object sender, EventArgs e)
         {
             this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
             GenerateItemWindows();
+        }
+        private async void SignOut_Button_Click(object sender, EventArgs e)
+        {
+            User.SignOut();
+            SignIn_Form form = new SignIn_Form()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = this.Location
+            };
+            form.Show();
+            await Task.Delay(2);
+            this.Hide();
         }
 
         private void GenerateItemWindows()
@@ -66,6 +80,7 @@ namespace E_Shop.Forms
             shop_Panel.Refresh();
         }
 
+        #region -> Data Fetching
         private List<Product> GetProducts()
         {
             try
@@ -92,8 +107,9 @@ namespace E_Shop.Forms
                 return new List<Product>();
             }
         }
+        #endregion
 
-
+        #region -> Data Formatting
         private Product FormAProduct(DataRow product)
         {
             try
@@ -135,18 +151,9 @@ namespace E_Shop.Forms
                 return null;
             }
         }
+        #endregion
 
-        private async void SignOut_Button_Click(object sender, EventArgs e)
-        {
-            User.SignOut();
-            SignIn_Form form = new SignIn_Form()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = this.Location
-            };
-            form.Show();
-            await Task.Delay(2);
-            this.Hide();
-        }
+
+        #endregion
     }
 }

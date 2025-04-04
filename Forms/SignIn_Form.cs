@@ -15,10 +15,12 @@ namespace E_Shop
             InitializeComponent();
 
             new A_Form(this).Apply(signIn_Panel);
+
             this.registerButton.Click += (s, e) => A_Button.OpenForm<SignUp_Form>(this);
             this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
 
         }
+        #region -> Private Methods
         private void SignIn_Form_Load(object sender, EventArgs e)
         {
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
@@ -55,25 +57,14 @@ namespace E_Shop
                 User.Privilege = user["Privilege"].ToString();
 
                 MessageHelper.PrintOutMessage("Success", output_Label, MessageType.Success);
-                ShowShop();
+                A_Button.OpenForm<Shop_Form>(this);
             }
             catch (Exception ex)
             {
                 MessageHelper.PrintOutMessage(ex.Message, output_Label, MessageType.Error);
             }
         }
-
-        private async void ShowShop()
-        {
-            Shop_Form form = new Shop_Form
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = Location
-            };
-            form.Show();
-            await Task.Delay(2);
-            this.Hide();
-        }
+        #endregion
     }
 }
 

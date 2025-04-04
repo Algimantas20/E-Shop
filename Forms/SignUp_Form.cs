@@ -14,14 +14,15 @@ namespace E_Shop.Forms
         {
             InitializeComponent();
             new A_Form(this).Apply(signUp_Panel);
+
             this.back_Button.Click += (s, e) => A_Button.OpenForm<SignIn_Form>(this);
             this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
         }
+        #region -> Private Methods
         private void SignUp_Form_Load(object sender, EventArgs e)
         {
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
         }
-
         private void SignIn_Button_Click(object sender, EventArgs e)
         {
             string username = username_TextBox.Texts;
@@ -98,5 +99,6 @@ namespace E_Shop.Forms
                 return false;
             }
         }
+        #endregion
     }
 }

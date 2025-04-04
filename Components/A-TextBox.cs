@@ -9,29 +9,27 @@ namespace E_Shop.Components
     [DefaultEvent("_TextChanged")]
     public partial class A_TexBox : UserControl
     {
-        #region -> Fields
-        //Fields
+        #region -> Variables
+
         private Color borderColor = Color.MediumSlateBlue;
         private Color borderFocusColor = Color.HotPink;
+        private int borderRadius = 0;
         private int borderSize = 2;
+
         private bool underlinedStyle = false;
         private bool isFocused = false;
 
-        private int borderRadius = 0;
         private Color placeholderColor = Color.DarkGray;
         private string placeholderText = "";
         private bool isPlaceholder = false;
         private bool isPasswordChar = false;
 
-        //Events
         public event EventHandler _TextChanged;
 
         #endregion
 
-        //-> Constructor
         public A_TexBox()
         {
-            //Created by designer
             InitializeComponent();
         }
 

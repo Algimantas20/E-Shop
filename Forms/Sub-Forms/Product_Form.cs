@@ -13,6 +13,7 @@ namespace E_Shop.Forms.Sub_Forms
             InitializeComponent();
 
             new A_Form(this).Apply(product_Panel);
+
             this.back_Button.Click += (s, e) => A_Button.OpenForm<Shop_Form>(this);
             this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
 

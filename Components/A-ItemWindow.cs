@@ -1,21 +1,25 @@
 ﻿using E_Shop.Classes;
 using E_Shop.Forms.Sub_Forms;
+
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 
 namespace E_Shop.Components
 {
     public partial class A_ItemWindow : UserControl
     {
+        #region -> Variables
         private Product _product;
         private Form _parentForm;
 
         private int _borderRadius = 15;
         private int _borderSize = 2;
         private Color _borderColor;
+        #endregion
+
         public A_ItemWindow(Product product, Form parentForm)
         {
             _product = product;
@@ -32,6 +36,7 @@ namespace E_Shop.Components
             this.Click += OpenProductPage;
         }
 
+        #region -> Private Methods
         private void OpenProductPage(object sender, EventArgs e)
         {
             _parentForm.Close();
@@ -42,6 +47,7 @@ namespace E_Shop.Components
             }
             form.ShowDialog();
         }
+        #endregion
 
         #region -> Border
         private GraphicsPath GetFigurePath(Rectangle rect, float radius)
@@ -125,6 +131,7 @@ namespace E_Shop.Components
                 this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
         }
         #endregion
+
         #region -> Private Methods
         private void Container_BackColorChanged(object sender, EventArgs e)
         {
@@ -136,6 +143,7 @@ namespace E_Shop.Components
                 _borderRadius = this.Height;
         }
         #endregion
+
         #region Properties
         public Color BackgroundColor
         {

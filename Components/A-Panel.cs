@@ -1,17 +1,20 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.ComponentModel;
+using System.Drawing.Drawing2D;
 
 namespace E_Shop.Components
 {
     public partial class A_Panel : Panel
     {
+        #region -> Variables
         private int _borderRadius = 15;
         private int _borderSize = 2;
         private Color _borderColor = Color.FromArgb(49, 51, 56);
+        #endregion
 
+        #region -> Properties
         [Category("Appearance")]
         public int BorderRadius
         {
@@ -32,24 +35,25 @@ namespace E_Shop.Components
             get => _borderColor;
             set { _borderColor = value; this.Invalidate(); }
         }
+        #endregion
 
         public A_Panel()
         {
-            // Style settings for smooth repaint
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.UpdateStyles();
 
-            // Example default look
             this.BackColor = Color.White;
             this.Size = new Size(100, 100);
         }
 
+        #region -> Private Methods
+
+        #region -> Override Methods
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            // Always clear the background to avoid ghosting
             e.Graphics.Clear(this.BackColor);
         }
 
@@ -57,12 +61,10 @@ namespace E_Shop.Components
         {
             base.OnPaint(e);
 
-            // Prepare rectangles
             Rectangle rectSurface = this.ClientRectangle;
             Rectangle rectBorder = Rectangle.Inflate(rectSurface, -_borderSize, -_borderSize);
             int smoothSize = Math.Max(2, _borderSize);
 
-            // Decide whether to draw rounded or normal
             if (_borderRadius > 2)
             {
                 DrawRoundedWindow(e, rectSurface, rectBorder, smoothSize);
@@ -76,8 +78,9 @@ namespace E_Shop.Components
         protected override void OnScroll(ScrollEventArgs se)
         {
             base.OnScroll(se);
-            this.Invalidate(); // Redraw after scrolling
+            this.Invalidate();
         }
+        #endregion
 
         private GraphicsPath GetPath(RectangleF rect, int radius)
         {
@@ -91,10 +94,10 @@ namespace E_Shop.Components
             }
 
             path.StartFigure();
-            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90); // Top-left
-            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90); // Top-right
-            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90); // Bottom-right
-            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90); // Bottom-left
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
             path.CloseFigure();
             return path;
         }
@@ -125,18 +128,17 @@ namespace E_Shop.Components
             {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-                // The Region ensures the panel is clipped to rounded shape
                 this.Region = new Region(pathSurface);
 
-                // Draw "outer" path with a pen matching the parent color (smooth edges)
                 e.Graphics.DrawPath(penSurface, pathSurface);
 
                 if (_borderSize >= 1)
                 {
-                    // Draw the actual border
                     e.Graphics.DrawPath(penBorder, pathBorder);
                 }
             }
         }
+
+        #endregion
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
 
 namespace E_Shop.Components
 {
@@ -69,7 +69,6 @@ namespace E_Shop.Components
             this.ForeColor = Color.Black;
             this.Resize += new EventHandler(Button_Resize);
         }
-
 
         #region -> Border Methods
         private GraphicsPath GetFigurePath(Rectangle rect, float radius)
@@ -142,12 +141,7 @@ namespace E_Shop.Components
             }
         }
         #endregion
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-            if (this.Parent != null)
-                this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
-        }
+
         #region -> Private Methods
         private void Button_Resize(object sender, EventArgs e)
         {
@@ -159,7 +153,14 @@ namespace E_Shop.Components
         {
             this.Invalidate();
         }
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            if (this.Parent != null)
+                this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
+        }
         #endregion
+
         #region -> Public Methods
         public async static void OpenForm<TargetForm>(Form form) where TargetForm : Form, new()
         {

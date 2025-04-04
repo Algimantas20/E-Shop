@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace E_Shop.Components
@@ -25,7 +23,7 @@ namespace E_Shop.Components
             this.BackColor = Color.LightGray;
             this.ForeColor = Color.Black;
         }
-
+        #region -> Properties
         public Icon Button_Icon
         {
             get { return _icon; }
@@ -45,5 +43,7 @@ namespace E_Shop.Components
             get => base.Text;
             set => base.Text = "";
         }
+
+        #endregion
     }
 }

@@ -7,13 +7,18 @@ using System.Windows.Forms;
 [ToolboxItem(false)]
 public class A_Form : Component
 {
+    #region -> Variables
     private Form _form;
-    private bool _dragging = false;
+
     private Point _dragCursorPoint;
     private Point _dragFormPoint;
-    private int _cornerRadius = 20;
-    private double _originalOpacity = 1.0;
 
+    private double _originalOpacity = 1.0;
+    private int _cornerRadius = 20;
+    private bool _dragging = false;
+    #endregion
+
+    #region -> Imports
     [DllImport("dwmapi.dll")]
     private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS margins);
 
@@ -22,15 +27,19 @@ public class A_Form : Component
 
     [DllImport("gdi32.dll")]
     private static extern IntPtr CreateRoundRectRgn(int left, int top, int right, int bottom, int width, int height);
+    #endregion
 
+    #region -> Enums
     [StructLayout(LayoutKind.Sequential)]
     private struct MARGINS
     {
         public int Left, Right, Top, Bottom;
     }
+    #endregion
 
     public A_Form(Form form) { _form = form; }
 
+    #region -> Properties
     public int CornerRadius
     {
         get { return _cornerRadius; }
@@ -43,7 +52,9 @@ public class A_Form : Component
             }
         }
     }
+    #endregion
 
+    #region Public Methods
     public void Apply(params Panel[] panels)
     {
         _form.FormBorderStyle = FormBorderStyle.None;
@@ -67,7 +78,9 @@ public class A_Form : Component
         }
 
     }
+    #endregion 
 
+    #region Private Methods
     private void Form_Load(object sender, EventArgs e)
     {
         ApplyRoundedCorners();
@@ -110,4 +123,5 @@ public class A_Form : Component
 
         _form.Opacity = _originalOpacity;
     }
+    #endregion
 }
