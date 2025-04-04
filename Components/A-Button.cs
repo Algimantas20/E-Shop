@@ -159,9 +159,6 @@ namespace E_Shop.Components
             if (this.Parent != null)
                 this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
         }
-        #endregion
-
-        #region -> Public Methods
         public async static void OpenForm<TargetForm>(Form form) where TargetForm : Form, new()
         {
             TargetForm newForm = new TargetForm()
@@ -173,7 +170,7 @@ namespace E_Shop.Components
             newForm.BringToFront();
             await Task.Delay(100);
 
-            if(typeof(TargetForm) == typeof(SignIn_Form))
+            if (form.GetType() == typeof(SignIn_Form))
             {
                 form.Hide();
                 return;
@@ -181,11 +178,18 @@ namespace E_Shop.Components
 
             form.Dispose();
             form.Close();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
-        public static void ExitApplication(Form form)
+
+        public static async Task ExitApplication(Form form)
         {
             form.Close();
             form.Dispose();
+
+            await Task.Delay(5);
+
             Environment.Exit(0);
         }
         #endregion

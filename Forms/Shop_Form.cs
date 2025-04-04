@@ -80,33 +80,39 @@ namespace E_Shop.Forms
             shop_Panel.Refresh();
         }
 
+
+        #endregion
+
         #region -> Data Fetching
         private List<Product> GetProducts()
         {
+            var formattedProducts = new List<Product>();
+
             try
             {
-                if (this.e_Shop_DatabaseDataSet.Products.Rows.Count == 0)
+                var table = this.e_Shop_DatabaseDataSet.Products;
+
+                if (table == null || table.Rows.Count == 0)
+                    return formattedProducts;
+
+                foreach (DataRow row in table.Rows)
                 {
-                    throw new Exception("The dataset is empty.");
+                    if (row.Field<int>("Id") > 0)
+                    {
+                        var product = FormAProduct(row);
+                        formattedProducts.Add(product);
+                    }
                 }
-
-                DataRow[] products = this.e_Shop_DatabaseDataSet.Products.Select("Id > 0");
-                var formattedProducts = new List<Product>();
-
-                foreach (var row in products)
-                {
-                    var product = FormAProduct(row);
-                    formattedProducts.Add(product);
-                }
-
-                return formattedProducts;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error fetching products: {ex.Message}");
-                return new List<Product>();
+                throw new Exception("Error fetching products", ex);
             }
+
+            return formattedProducts;
         }
+
         #endregion
 
         #region -> Data Formatting
@@ -153,7 +159,5 @@ namespace E_Shop.Forms
         }
         #endregion
 
-
-        #endregion
     }
 }
