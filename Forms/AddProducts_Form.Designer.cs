@@ -92,7 +92,6 @@
             this.exitButton.Size = new System.Drawing.Size(26, 25);
             this.exitButton.TabIndex = 3;
             this.exitButton.Text = "X";
-            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // addProduct_Panel
             // 
@@ -344,7 +343,6 @@
             this.shop_Button.TabIndex = 4;
             this.shop_Button.Text = "Shop";
             this.shop_Button.UseVisualStyleBackColor = false;
-            this.shop_Button.Click += new System.EventHandler(this.Shop_Button_Click);
             // 
             // signOut_Button
             // 

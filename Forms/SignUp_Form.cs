@@ -1,5 +1,6 @@
 ﻿using E_Shop.Classes;
 using E_Shop.Database;
+using E_Shop.Components;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -13,26 +14,12 @@ namespace E_Shop.Forms
         {
             InitializeComponent();
             new A_Form(this).Apply(signUp_Panel);
+            this.back_Button.Click += (s, e) => A_Button.OpenForm<SignIn_Form>(this);
+            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
         }
         private void SignUp_Form_Load(object sender, EventArgs e)
         {
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
-        }
-        private void Exit_Button_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private async void Back_Button_Click(object sender, EventArgs e)
-        {
-            SignIn_Form form = new SignIn_Form
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = Location
-            };
-            form.Show();
-            await Task.Delay(2);
-            this.Hide();
         }
 
         private void SignIn_Button_Click(object sender, EventArgs e)

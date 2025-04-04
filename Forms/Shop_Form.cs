@@ -17,7 +17,10 @@ namespace E_Shop.Forms
         {
             InitializeComponent();
             new A_Form(this).Apply(shop_Panel, side_Panel);
-            if(User.Privilege != "Admin")
+            this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
+            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
+
+            if (User.Privilege != "Admin")
                 addProducts_Button.Visible = false;
         }
 
@@ -131,26 +134,6 @@ namespace E_Shop.Forms
                 Debug.WriteLine($"Error converting binary data to image: {ex.Message}");
                 return null;
             }
-        }
-
-
-
-        private async void AddProducts_Button_Click(object sender, EventArgs e)
-        {
-            AddProducts_Form form = new AddProducts_Form
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = Location
-            };
-            form.Show();
-            form.BringToFront();
-            await Task.Delay(3);
-            this.Close();
-        }
-
-        private void Exit_Button_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
         }
 
         private async void SignOut_Button_Click(object sender, EventArgs e)

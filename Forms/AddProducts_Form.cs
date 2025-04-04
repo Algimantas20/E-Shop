@@ -1,4 +1,5 @@
 ﻿using E_Shop.Classes;
+using E_Shop.Components;
 using E_Shop.Database;
 using E_Shop.Forms.Sub_Forms;
 
@@ -16,7 +17,10 @@ namespace E_Shop.Forms
         public AddProducts_Form()
         {
             InitializeComponent();
+
             new A_Form(this).Apply(addProduct_Panel, side_Panel);
+            this.shop_Button.Click += (s, e) => A_Button.OpenForm<Shop_Form>(this);
+            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
         }
 
         #region -> Private Methods
@@ -29,19 +33,6 @@ namespace E_Shop.Forms
             binaryImage = File.ReadAllBytes(filePath);
         }
         #endregion
-
-        private async void Shop_Button_Click(object sender, EventArgs e)
-        {
-            Shop_Form form = new Shop_Form
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = Location
-            };
-            form.Show();
-            form.BringToFront();
-            await Task.Delay(2);
-            this.Close();
-        }
 
         private void Picture_Button_Click(object sender, EventArgs e)
         {
@@ -112,11 +103,6 @@ namespace E_Shop.Forms
 
                _binaryImage = null;
             }
-        }
-
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
         }
 
         private void Preview_Button_Click(object sender, EventArgs e)

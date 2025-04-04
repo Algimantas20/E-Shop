@@ -76,13 +76,12 @@
             this.exitButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.ForeColor = System.Drawing.Color.Black;
-            this.exitButton.Location = new System.Drawing.Point(910, 0);
+            this.exitButton.Location = new System.Drawing.Point(961, 9);
             this.exitButton.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(26, 25);
             this.exitButton.TabIndex = 2;
             this.exitButton.Text = "X";
-            this.exitButton.Click += new System.EventHandler(this.Exit_Button_Click);
             // 
             // shop_Panel
             // 
@@ -91,10 +90,10 @@
             this.shop_Panel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.shop_Panel.BorderRadius = 15;
             this.shop_Panel.BorderSize = 2;
-            this.shop_Panel.Location = new System.Drawing.Point(191, 29);
+            this.shop_Panel.Location = new System.Drawing.Point(191, 38);
             this.shop_Panel.Margin = new System.Windows.Forms.Padding(4);
             this.shop_Panel.Name = "shop_Panel";
-            this.shop_Panel.Size = new System.Drawing.Size(796, 558);
+            this.shop_Panel.Size = new System.Drawing.Size(796, 549);
             this.shop_Panel.TabIndex = 3;
             // 
             // side_Panel
@@ -128,7 +127,6 @@
             this.addProducts_Button.TabIndex = 6;
             this.addProducts_Button.Text = "Add Products";
             this.addProducts_Button.UseVisualStyleBackColor = false;
-            this.addProducts_Button.Click += new System.EventHandler(this.AddProducts_Button_Click);
             // 
             // viewCart_Button
             // 

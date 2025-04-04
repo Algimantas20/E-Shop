@@ -52,7 +52,6 @@
             this.back_Button.Size = new System.Drawing.Size(24, 25);
             this.back_Button.TabIndex = 5;
             this.back_Button.Text = "<";
-            this.back_Button.Click += new System.EventHandler(this.Back_Button_Click);
             // 
             // exitButton
             // 
@@ -65,7 +64,6 @@
             this.exitButton.Size = new System.Drawing.Size(26, 25);
             this.exitButton.TabIndex = 4;
             this.exitButton.Text = "X";
-            this.exitButton.Click += new System.EventHandler(this.Exit_Button_Click);
             // 
             // product_Panel
             // 

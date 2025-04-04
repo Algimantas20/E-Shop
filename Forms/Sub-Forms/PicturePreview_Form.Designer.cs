@@ -43,7 +43,6 @@
             this.back_Button.Size = new System.Drawing.Size(24, 25);
             this.back_Button.TabIndex = 4;
             this.back_Button.Text = "<";
-            this.back_Button.Click += new System.EventHandler(this.Back_Button_Click);
             // 
             // picture_PictureBox
             // 

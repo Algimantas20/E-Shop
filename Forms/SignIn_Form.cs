@@ -1,4 +1,5 @@
 ﻿using E_Shop.Classes;
+using E_Shop.Components;
 using E_Shop.Forms;
 using System;
 using System.Data;
@@ -12,29 +13,15 @@ namespace E_Shop
         public SignIn_Form()
         {
             InitializeComponent();
+
             new A_Form(this).Apply(signIn_Panel);
+            this.registerButton.Click += (s, e) => A_Button.OpenForm<SignUp_Form>(this);
+            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
+
         }
         private void SignIn_Form_Load(object sender, EventArgs e)
         {
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
-        }
-
-        private async void RegisterButton_Click(object sender, EventArgs e)
-        {
-            SignUp_Form form = new SignUp_Form
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = Location
-            };
-            form.Show();
-            form.BringToFront();
-            await Task.Delay(2);
-            this.Hide();
-        }
-
-        private void Exit_Button_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
         }
 
         private void SignIn_Button_Click(object sender, EventArgs e)

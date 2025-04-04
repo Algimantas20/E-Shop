@@ -58,7 +58,6 @@
             this.exitButton.Size = new System.Drawing.Size(26, 25);
             this.exitButton.TabIndex = 1;
             this.exitButton.Text = "X";
-            this.exitButton.Click += new System.EventHandler(this.Exit_Button_Click);
             // 
             // e_Shop_DatabaseDataSet
             // 
@@ -123,7 +122,6 @@
             this.registerButton.Size = new System.Drawing.Size(52, 16);
             this.registerButton.TabIndex = 5;
             this.registerButton.Text = "Sign up";
-            this.registerButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // signUp_Label
             // 
