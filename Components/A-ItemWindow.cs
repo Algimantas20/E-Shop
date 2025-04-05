@@ -36,19 +36,6 @@ namespace E_Shop.Components
             this.Click += OpenProductPage;
         }
 
-        #region -> Private Methods
-        private void OpenProductPage(object sender, EventArgs e)
-        {
-            _parentForm.Close();
-            Product_Form form = new Product_Form(_product);
-            {
-                form.StartPosition = FormStartPosition.Manual;
-                form.Location = _parentForm.Location;
-            }
-            form.ShowDialog();
-        }
-        #endregion
-
         #region -> Border
         private GraphicsPath GetFigurePath(Rectangle rect, float radius)
         {
@@ -141,6 +128,16 @@ namespace E_Shop.Components
         {
             if (_borderRadius > this.Height)
                 _borderRadius = this.Height;
+        }
+        private void OpenProductPage(object sender, EventArgs e)
+        {
+            _parentForm.Close();
+            Product_Form form = new Product_Form(_product);
+            {
+                form.StartPosition = FormStartPosition.Manual;
+                form.Location = _parentForm.Location;
+            }
+            form.ShowDialog();
         }
         #endregion
 

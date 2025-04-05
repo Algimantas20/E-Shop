@@ -15,7 +15,7 @@ namespace E_Shop.Forms.Sub_Forms
             new A_Form(this).Apply(product_Panel);
 
             this.back_Button.Click += (s, e) => A_Button.OpenForm<Shop_Form>(this);
-            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
 
             if (User.Privilege != "Admin")
                 editProduct_Button.Visible = false;

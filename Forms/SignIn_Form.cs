@@ -1,9 +1,9 @@
 ﻿using E_Shop.Classes;
 using E_Shop.Components;
 using E_Shop.Forms;
+
 using System;
 using System.Data;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace E_Shop
@@ -17,14 +17,12 @@ namespace E_Shop
             new A_Form(this).Apply(signIn_Panel);
 
             this.registerButton.Click += (s, e) => A_Button.OpenForm<SignUp_Form>(this);
-            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
 
         }
         #region -> Private Methods
-        private void SignIn_Form_Load(object sender, EventArgs e)
-        {
+        private void SignIn_Form_Load(object sender, EventArgs e) =>
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
-        }
 
         private void SignIn_Button_Click(object sender, EventArgs e)
         {
@@ -65,6 +63,8 @@ namespace E_Shop
             }
         }
         #endregion
+
+
     }
 }
 

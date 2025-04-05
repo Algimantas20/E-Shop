@@ -30,10 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.exitButton = new System.Windows.Forms.Label();
-            this.e_Shop_DatabaseDataSet = new E_Shop.Database.E_Shop_DatabaseDataSet();
-            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.usersTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.UsersTableAdapter();
-            this.tableAdapterManager = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager();
             this.signIn_Panel = new E_Shop.Components.A_Panel();
             this.output_Label = new System.Windows.Forms.Label();
             this.registerButton = new System.Windows.Forms.Label();
@@ -42,9 +38,13 @@
             this.password_TextBox = new E_Shop.Components.A_TexBox();
             this.signIn_Button = new E_Shop.Components.A_Button();
             this.username_TextBox = new E_Shop.Components.A_TexBox();
+            this.e_Shop_DatabaseDataSet = new E_Shop.Database.E_Shop_DatabaseDataSet();
+            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.usersTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.UsersTableAdapter();
+            this.tableAdapterManager = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager();
+            this.signIn_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
-            this.signIn_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // exitButton
@@ -52,36 +52,12 @@
             this.exitButton.AutoSize = true;
             this.exitButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(961, 9);
+            this.exitButton.Location = new System.Drawing.Point(1071, 9);
             this.exitButton.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(26, 25);
             this.exitButton.TabIndex = 1;
             this.exitButton.Text = "X";
-            // 
-            // e_Shop_DatabaseDataSet
-            // 
-            this.e_Shop_DatabaseDataSet.DataSetName = "E_Shop_DatabaseDataSet";
-            this.e_Shop_DatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // usersBindingSource
-            // 
-            this.usersBindingSource.DataMember = "Users";
-            this.usersBindingSource.DataSource = this.e_Shop_DatabaseDataSet;
-            // 
-            // usersTableAdapter
-            // 
-            this.usersTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CartTableAdapter = null;
-            this.tableAdapterManager.OrdersTableAdapter = null;
-            this.tableAdapterManager.ProductsTableAdapter = null;
-            this.tableAdapterManager.QuantityTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            this.tableAdapterManager.UsersTableAdapter = this.usersTableAdapter;
             // 
             // signIn_Panel
             // 
@@ -210,11 +186,35 @@
             this.username_TextBox.Texts = "";
             this.username_TextBox.UnderlinedStyle = true;
             // 
+            // e_Shop_DatabaseDataSet
+            // 
+            this.e_Shop_DatabaseDataSet.DataSetName = "E_Shop_DatabaseDataSet";
+            this.e_Shop_DatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // usersBindingSource
+            // 
+            this.usersBindingSource.DataMember = "Users";
+            this.usersBindingSource.DataSource = this.e_Shop_DatabaseDataSet;
+            // 
+            // usersTableAdapter
+            // 
+            this.usersTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CartTableAdapter = null;
+            this.tableAdapterManager.OrdersTableAdapter = null;
+            this.tableAdapterManager.ProductsTableAdapter = null;
+            this.tableAdapterManager.QuantityTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UsersTableAdapter = this.usersTableAdapter;
+            // 
             // SignIn_Form
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
-            this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.ClientSize = new System.Drawing.Size(1110, 600);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.signIn_Panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -223,10 +223,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "E-Shop";
             this.Load += new System.EventHandler(this.SignIn_Form_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             this.signIn_Panel.ResumeLayout(false);
             this.signIn_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,11 +242,11 @@
         private System.Windows.Forms.Label registerButton;
         private System.Windows.Forms.Label signUp_Label;
         private System.Windows.Forms.Label exitButton;
+        private System.Windows.Forms.Label output_Label;
         private Database.E_Shop_DatabaseDataSet e_Shop_DatabaseDataSet;
         private System.Windows.Forms.BindingSource usersBindingSource;
         private Database.E_Shop_DatabaseDataSetTableAdapters.UsersTableAdapter usersTableAdapter;
         private Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.Label output_Label;
     }
 }
 

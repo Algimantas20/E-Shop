@@ -14,22 +14,42 @@ namespace E_Shop.Forms
 {
     public partial class Shop_Form : Form
     {
+        #region -> Variables
+        private readonly int _itemWidth = 250;
+        private readonly int _itemHeight = 300;
+        private readonly int _itemSpacing = 10;
+        #endregion
+
         public Shop_Form()
         {
             InitializeComponent();
 
             new A_Form(this).Apply(shop_Panel, side_Panel);
             this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
-            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+            this.FormClosing += (s, e) =>
+            {
+                if (shop_Panel.Controls != null)
+                {
+                    foreach (Control control in shop_Panel.Controls)
+                    {
+                        control.Dispose();
+                    }
+
+                    shop_Panel.Controls.Clear();
+                }
+            };
+
 
             if (User.Privilege != "Admin")
                 addProducts_Button.Visible = false;
         }
         #region -> Private Methods
-        private void Shop_Form_Load(object sender, EventArgs e)
+
+        private async void Shop_Form_Load(object sender, EventArgs e)
         {
             this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
-            GenerateItemWindows();
+            await GenerateItemWindowsAsync();
         }
         private async void SignOut_Button_Click(object sender, EventArgs e)
         {
@@ -43,16 +63,12 @@ namespace E_Shop.Forms
             await Task.Delay(2);
             this.Hide();
         }
-
-        private void GenerateItemWindows()
+        private async Task GenerateItemWindowsAsync()
         {
-            List<Product> products = GetProducts();
+            var products = await Task.Run(() => GetProducts());
 
+            int itemsPerRow = (shop_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing);
             int x = 10, y = 10;
-            int itemWidth = 250;
-            int itemHeight = 300;
-            int spacing = 10;
-            int itemsPerRow = (shop_Panel.Width - spacing) / (itemWidth + spacing);
             int count = 0;
 
             shop_Panel.Controls.Clear();
@@ -67,12 +83,12 @@ namespace E_Shop.Forms
                 shop_Panel.Controls.Add(itemWindow);
 
                 count++;
-                x += itemWidth + spacing;
+                x += _itemWidth + _itemSpacing;
                 if (count >= itemsPerRow)
                 {
                     count = 0;
                     x = 10;
-                    y += itemHeight + spacing;
+                    y += _itemHeight + _itemSpacing;
                 }
             }
 
@@ -80,10 +96,10 @@ namespace E_Shop.Forms
             shop_Panel.Refresh();
         }
 
-
         #endregion
 
         #region -> Data Fetching
+
         private List<Product> GetProducts()
         {
             var formattedProducts = new List<Product>();
@@ -97,11 +113,14 @@ namespace E_Shop.Forms
 
                 foreach (DataRow row in table.Rows)
                 {
-                    if (row.Field<int>("Id") > 0)
+                    if (row.Field<int>("Id") <= 0)
                     {
-                        var product = FormAProduct(row);
-                        formattedProducts.Add(product);
-                    }
+                        return new List<Product>();
+                    }   
+
+                    var product = FormAProduct(row);
+                    formattedProducts.Add(product);
+                    
                 }
             }
             catch (Exception ex)

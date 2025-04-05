@@ -60,6 +60,7 @@ namespace E_Shop.Components
             set { this.ForeColor = value; }
         }
         #endregion
+
         public A_Button()
         {
             this.FlatStyle = FlatStyle.Flat;
@@ -142,22 +143,19 @@ namespace E_Shop.Components
         }
         #endregion
 
-        #region -> Private Methods
-        private void Button_Resize(object sender, EventArgs e)
-        {
-            if (_borderRadius > this.Height)
-                _borderRadius = this.Height;
-        }
-
-        private void Container_BackColorChanged(object sender, EventArgs e)
-        {
-            this.Invalidate();
-        }
+        #region -> Override Methods
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
             if (this.Parent != null)
                 this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
+        }
+        #endregion
+
+        #region -> Private Methods
+        private void Container_BackColorChanged(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
         public async static void OpenForm<TargetForm>(Form form) where TargetForm : Form, new()
         {
@@ -182,7 +180,11 @@ namespace E_Shop.Components
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
-
+        private void Button_Resize(object sender, EventArgs e)
+        {
+            if (_borderRadius > this.Height)
+                _borderRadius = this.Height;
+        }
         public static async Task ExitApplication(Form form)
         {
             form.Close();

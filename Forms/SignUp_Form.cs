@@ -16,7 +16,7 @@ namespace E_Shop.Forms
             new A_Form(this).Apply(signUp_Panel);
 
             this.back_Button.Click += (s, e) => A_Button.OpenForm<SignIn_Form>(this);
-            this.exitButton.Click += (s, e) => A_Button.ExitApplication(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
         }
         #region -> Private Methods
         private void SignUp_Form_Load(object sender, EventArgs e)
