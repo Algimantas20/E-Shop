@@ -132,11 +132,12 @@ namespace E_Shop.Forms
             {
                 return new Product
                 (
+                    Id: int.Parse(product["Id"].ToString()),
                     title: product["Product_Name"].ToString(),
                     description: product["Product_Description"].ToString(),
                     price: float.Parse(product["Product_Price"].ToString()),
                     image: BinaryToImage(product["Product_Image"] as Byte[])
-                );
+                ); 
             }
             catch (Exception ex)
             {
