@@ -1,0 +1,184 @@
+﻿namespace E_Shop.Forms
+{
+    partial class ViewCart_Form
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewCart_Form));
+            this.side_Panel = new System.Windows.Forms.Panel();
+            this.exitButton = new System.Windows.Forms.Label();
+            this.viewCart_Panel = new E_Shop.Components.A_Panel();
+            this.addProducts_Button = new E_Shop.Components.A_SidePanelButton();
+            this.viewCart_Button = new E_Shop.Components.A_SidePanelButton();
+            this.shop_Button = new E_Shop.Components.A_SidePanelButton();
+            this.signOut_Button = new E_Shop.Components.A_Button();
+            this.side_Panel.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // side_Panel
+            // 
+            this.side_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.side_Panel.Controls.Add(this.addProducts_Button);
+            this.side_Panel.Controls.Add(this.viewCart_Button);
+            this.side_Panel.Controls.Add(this.shop_Button);
+            this.side_Panel.Controls.Add(this.signOut_Button);
+            this.side_Panel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.side_Panel.Location = new System.Drawing.Point(0, 0);
+            this.side_Panel.Margin = new System.Windows.Forms.Padding(4);
+            this.side_Panel.Name = "side_Panel";
+            this.side_Panel.Size = new System.Drawing.Size(183, 600);
+            this.side_Panel.TabIndex = 6;
+            // 
+            // exitButton
+            // 
+            this.exitButton.AutoSize = true;
+            this.exitButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.exitButton.Location = new System.Drawing.Point(961, 9);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(26, 25);
+            this.exitButton.TabIndex = 7;
+            this.exitButton.Text = "X";
+            // 
+            // viewCart_Panel
+            // 
+            this.viewCart_Panel.AutoScroll = true;
+            this.viewCart_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.viewCart_Panel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.viewCart_Panel.BorderRadius = 15;
+            this.viewCart_Panel.BorderSize = 2;
+            this.viewCart_Panel.Location = new System.Drawing.Point(191, 38);
+            this.viewCart_Panel.Margin = new System.Windows.Forms.Padding(4);
+            this.viewCart_Panel.Name = "viewCart_Panel";
+            this.viewCart_Panel.Size = new System.Drawing.Size(796, 549);
+            this.viewCart_Panel.TabIndex = 8;
+            // 
+            // addProducts_Button
+            // 
+            this.addProducts_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.addProducts_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("addProducts_Button.Button_Icon")));
+            this.addProducts_Button.FlatAppearance.BorderSize = 0;
+            this.addProducts_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.addProducts_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addProducts_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.addProducts_Button.ForeColor = System.Drawing.Color.Silver;
+            this.addProducts_Button.IsActive = false;
+            this.addProducts_Button.Location = new System.Drawing.Point(0, 233);
+            this.addProducts_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.addProducts_Button.Name = "addProducts_Button";
+            this.addProducts_Button.Size = new System.Drawing.Size(183, 49);
+            this.addProducts_Button.TabIndex = 6;
+            this.addProducts_Button.Text = "Add Products";
+            this.addProducts_Button.UseVisualStyleBackColor = false;
+            // 
+            // viewCart_Button
+            // 
+            this.viewCart_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.viewCart_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("viewCart_Button.Button_Icon")));
+            this.viewCart_Button.FlatAppearance.BorderSize = 0;
+            this.viewCart_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.viewCart_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.viewCart_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.viewCart_Button.ForeColor = System.Drawing.Color.Silver;
+            this.viewCart_Button.IsActive = true;
+            this.viewCart_Button.Location = new System.Drawing.Point(0, 175);
+            this.viewCart_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.viewCart_Button.Name = "viewCart_Button";
+            this.viewCart_Button.Size = new System.Drawing.Size(183, 49);
+            this.viewCart_Button.TabIndex = 5;
+            this.viewCart_Button.Text = "View Cart";
+            this.viewCart_Button.UseVisualStyleBackColor = false;
+            // 
+            // shop_Button
+            // 
+            this.shop_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.shop_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("shop_Button.Button_Icon")));
+            this.shop_Button.FlatAppearance.BorderSize = 0;
+            this.shop_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.shop_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.shop_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.shop_Button.ForeColor = System.Drawing.Color.Silver;
+            this.shop_Button.IsActive = false;
+            this.shop_Button.Location = new System.Drawing.Point(0, 117);
+            this.shop_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.shop_Button.Name = "shop_Button";
+            this.shop_Button.Size = new System.Drawing.Size(183, 49);
+            this.shop_Button.TabIndex = 4;
+            this.shop_Button.Text = "Shop";
+            this.shop_Button.UseVisualStyleBackColor = false;
+            // 
+            // signOut_Button
+            // 
+            this.signOut_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.signOut_Button.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.signOut_Button.BorderColor = System.Drawing.Color.Black;
+            this.signOut_Button.BorderRadius = 0;
+            this.signOut_Button.BorderSize = 0;
+            this.signOut_Button.FlatAppearance.BorderSize = 0;
+            this.signOut_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.signOut_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.signOut_Button.ForeColor = System.Drawing.Color.Silver;
+            this.signOut_Button.Location = new System.Drawing.Point(0, 538);
+            this.signOut_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.signOut_Button.Name = "signOut_Button";
+            this.signOut_Button.Size = new System.Drawing.Size(183, 49);
+            this.signOut_Button.TabIndex = 3;
+            this.signOut_Button.Text = "Sign out";
+            this.signOut_Button.TextColor = System.Drawing.Color.Silver;
+            this.signOut_Button.UseVisualStyleBackColor = false;
+            // 
+            // ViewCart
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.viewCart_Panel);
+            this.Controls.Add(this.exitButton);
+            this.Controls.Add(this.side_Panel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "ViewCart";
+            this.Text = "ViewCart";
+            this.side_Panel.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Panel side_Panel;
+        private Components.A_SidePanelButton addProducts_Button;
+        private Components.A_SidePanelButton viewCart_Button;
+        private Components.A_SidePanelButton shop_Button;
+        private Components.A_Button signOut_Button;
+        private System.Windows.Forms.Label exitButton;
+        private Components.A_Panel viewCart_Panel;
+    }
+}

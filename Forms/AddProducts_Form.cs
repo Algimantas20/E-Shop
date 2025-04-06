@@ -20,7 +20,10 @@ namespace E_Shop.Forms
 
             new A_Form(this).Apply(addProduct_Panel, side_Panel);
             this.shop_Button.Click += (s, e) => A_Button.OpenForm<Shop_Form>(this);
+            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
             this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+
+            this.FormClosing += (s, e) => A_Panel.ClearPanel(addProduct_Panel);
         }
 
         #region -> Private Methods

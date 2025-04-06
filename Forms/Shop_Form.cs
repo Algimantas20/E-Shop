@@ -26,19 +26,10 @@ namespace E_Shop.Forms
 
             new A_Form(this).Apply(shop_Panel, side_Panel);
             this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
+            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
             this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
-            this.FormClosing += (s, e) =>
-            {
-                if (shop_Panel.Controls != null)
-                {
-                    foreach (Control control in shop_Panel.Controls)
-                    {
-                        control.Dispose();
-                    }
 
-                    shop_Panel.Controls.Clear();
-                }
-            };
+            this.FormClosing += (s, e) => A_Panel.ClearPanel(shop_Panel);
 
 
             if (User.Privilege != "Admin")
