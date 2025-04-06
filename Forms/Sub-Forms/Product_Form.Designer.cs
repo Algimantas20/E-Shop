@@ -28,17 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.back_Button = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Label();
             this.product_Panel = new E_Shop.Components.A_Panel();
+            this.addToCart_Button = new E_Shop.Components.A_Button();
             this.editProduct_Button = new E_Shop.Components.A_Button();
-            this.purchase_button = new E_Shop.Components.A_Button();
             this.price_label = new System.Windows.Forms.Label();
             this.description_label = new System.Windows.Forms.Label();
             this.title_Label = new System.Windows.Forms.Label();
             this.product_PictureBox = new System.Windows.Forms.PictureBox();
+            this.e_Shop_DatabaseDataSet = new E_Shop.Database.E_Shop_DatabaseDataSet();
+            this.cartBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cartTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.CartTableAdapter();
+            this.tableAdapterManager = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager();
             this.product_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.product_PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cartBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // back_Button
@@ -71,55 +78,55 @@
             this.product_Panel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.product_Panel.BorderRadius = 15;
             this.product_Panel.BorderSize = 2;
+            this.product_Panel.Controls.Add(this.addToCart_Button);
             this.product_Panel.Controls.Add(this.editProduct_Button);
-            this.product_Panel.Controls.Add(this.purchase_button);
             this.product_Panel.Controls.Add(this.price_label);
             this.product_Panel.Controls.Add(this.description_label);
             this.product_Panel.Controls.Add(this.title_Label);
             this.product_Panel.Controls.Add(this.product_PictureBox);
             this.product_Panel.Location = new System.Drawing.Point(16, 40);
-            this.product_Panel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.product_Panel.Margin = new System.Windows.Forms.Padding(4);
             this.product_Panel.Name = "product_Panel";
             this.product_Panel.Size = new System.Drawing.Size(971, 547);
             this.product_Panel.TabIndex = 6;
+            // 
+            // addToCart_Button
+            // 
+            this.addToCart_Button.BackColor = System.Drawing.Color.LightGray;
+            this.addToCart_Button.BackgroundColor = System.Drawing.Color.LightGray;
+            this.addToCart_Button.BorderColor = System.Drawing.Color.Black;
+            this.addToCart_Button.BorderRadius = 10;
+            this.addToCart_Button.BorderSize = 0;
+            this.addToCart_Button.FlatAppearance.BorderSize = 0;
+            this.addToCart_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addToCart_Button.ForeColor = System.Drawing.Color.Black;
+            this.addToCart_Button.Location = new System.Drawing.Point(752, 490);
+            this.addToCart_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.addToCart_Button.Name = "addToCart_Button";
+            this.addToCart_Button.Size = new System.Drawing.Size(200, 50);
+            this.addToCart_Button.TabIndex = 6;
+            this.addToCart_Button.Text = "Add To Cart";
+            this.addToCart_Button.TextColor = System.Drawing.Color.Black;
+            this.addToCart_Button.UseVisualStyleBackColor = false;
             // 
             // editProduct_Button
             // 
             this.editProduct_Button.BackColor = System.Drawing.Color.LightGray;
             this.editProduct_Button.BackgroundColor = System.Drawing.Color.LightGray;
             this.editProduct_Button.BorderColor = System.Drawing.Color.Black;
-            this.editProduct_Button.BorderRadius = 20;
+            this.editProduct_Button.BorderRadius = 10;
             this.editProduct_Button.BorderSize = 0;
             this.editProduct_Button.FlatAppearance.BorderSize = 0;
             this.editProduct_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editProduct_Button.ForeColor = System.Drawing.Color.Black;
-            this.editProduct_Button.Location = new System.Drawing.Point(23, 489);
-            this.editProduct_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.editProduct_Button.Location = new System.Drawing.Point(20, 490);
+            this.editProduct_Button.Margin = new System.Windows.Forms.Padding(4);
             this.editProduct_Button.Name = "editProduct_Button";
-            this.editProduct_Button.Size = new System.Drawing.Size(200, 49);
+            this.editProduct_Button.Size = new System.Drawing.Size(200, 50);
             this.editProduct_Button.TabIndex = 5;
             this.editProduct_Button.Text = "Edit Product";
             this.editProduct_Button.TextColor = System.Drawing.Color.Black;
             this.editProduct_Button.UseVisualStyleBackColor = false;
-            // 
-            // purchase_button
-            // 
-            this.purchase_button.BackColor = System.Drawing.Color.LightGray;
-            this.purchase_button.BackgroundColor = System.Drawing.Color.LightGray;
-            this.purchase_button.BorderColor = System.Drawing.Color.Black;
-            this.purchase_button.BorderRadius = 20;
-            this.purchase_button.BorderSize = 0;
-            this.purchase_button.FlatAppearance.BorderSize = 0;
-            this.purchase_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.purchase_button.ForeColor = System.Drawing.Color.Black;
-            this.purchase_button.Location = new System.Drawing.Point(754, 489);
-            this.purchase_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.purchase_button.Name = "purchase_button";
-            this.purchase_button.Size = new System.Drawing.Size(200, 49);
-            this.purchase_button.TabIndex = 4;
-            this.purchase_button.Text = "Purchase";
-            this.purchase_button.TextColor = System.Drawing.Color.Black;
-            this.purchase_button.UseVisualStyleBackColor = false;
             // 
             // price_label
             // 
@@ -158,12 +165,36 @@
             this.product_PictureBox.BackColor = System.Drawing.Color.Transparent;
             this.product_PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.product_PictureBox.Location = new System.Drawing.Point(19, 15);
-            this.product_PictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.product_PictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.product_PictureBox.Name = "product_PictureBox";
             this.product_PictureBox.Size = new System.Drawing.Size(350, 350);
             this.product_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.product_PictureBox.TabIndex = 0;
             this.product_PictureBox.TabStop = false;
+            // 
+            // e_Shop_DatabaseDataSet
+            // 
+            this.e_Shop_DatabaseDataSet.DataSetName = "E_Shop_DatabaseDataSet";
+            this.e_Shop_DatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // cartBindingSource
+            // 
+            this.cartBindingSource.DataMember = "Cart";
+            this.cartBindingSource.DataSource = this.e_Shop_DatabaseDataSet;
+            // 
+            // cartTableAdapter
+            // 
+            this.cartTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CartTableAdapter = this.cartTableAdapter;
+            this.tableAdapterManager.OrdersTableAdapter = null;
+            this.tableAdapterManager.ProductsTableAdapter = null;
+            this.tableAdapterManager.QuantityTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UsersTableAdapter = null;
             // 
             // Product_Form
             // 
@@ -174,12 +205,15 @@
             this.Controls.Add(this.back_Button);
             this.Controls.Add(this.exitButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Product_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Product_Form";
+            this.Load += new System.EventHandler(this.Product_Form_Load);
             this.product_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.product_PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cartBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,11 +224,15 @@
         private System.Windows.Forms.Label back_Button;
         private System.Windows.Forms.Label exitButton;
         private Components.A_Panel product_Panel;
-        private Components.A_Button purchase_button;
         private System.Windows.Forms.Label price_label;
         private System.Windows.Forms.Label description_label;
         private System.Windows.Forms.Label title_Label;
         private System.Windows.Forms.PictureBox product_PictureBox;
         private Components.A_Button editProduct_Button;
+        private Components.A_Button addToCart_Button;
+        private Database.E_Shop_DatabaseDataSet e_Shop_DatabaseDataSet;
+        private System.Windows.Forms.BindingSource cartBindingSource;
+        private Database.E_Shop_DatabaseDataSetTableAdapters.CartTableAdapter cartTableAdapter;
+        private Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager tableAdapterManager;
     }
 }

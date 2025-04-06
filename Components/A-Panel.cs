@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.Threading.Tasks;
 
 namespace E_Shop.Components
 {
@@ -48,39 +49,23 @@ namespace E_Shop.Components
             this.BackColor = Color.White;
             this.Size = new Size(100, 100);
         }
-
-        #region -> Private Methods
-
-        #region -> Override Methods
-        protected override void OnPaintBackground(PaintEventArgs e)
+        #region -> Public Methods
+        public static void ClearPanel(A_Panel panel)
         {
-            e.Graphics.Clear(this.BackColor);
-        }
+            if (panel == null)
+                return;
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            Rectangle rectSurface = this.ClientRectangle;
-            Rectangle rectBorder = Rectangle.Inflate(rectSurface, -_borderSize, -_borderSize);
-            int smoothSize = Math.Max(2, _borderSize);
-
-            if (_borderRadius > 2)
+            foreach (Control control in panel.Controls)
             {
-                DrawRoundedWindow(e, rectSurface, rectBorder, smoothSize);
+                control.Dispose();
             }
-            else
-            {
-                DrawNormalWindow(e, rectSurface);
-            }
-        }
 
-        protected override void OnScroll(ScrollEventArgs se)
-        {
-            base.OnScroll(se);
-            this.Invalidate();
+            panel.Controls.Clear();
+            panel.Dispose();
         }
         #endregion
+
+        #region -> Private Methods
 
         private GraphicsPath GetPath(RectangleF rect, int radius)
         {
@@ -139,6 +124,37 @@ namespace E_Shop.Components
             }
         }
 
+        #endregion
+
+        #region -> Override Methods
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            e.Graphics.Clear(this.BackColor);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            Rectangle rectSurface = this.ClientRectangle;
+            Rectangle rectBorder = Rectangle.Inflate(rectSurface, -_borderSize, -_borderSize);
+            int smoothSize = Math.Max(2, _borderSize);
+
+            if (_borderRadius > 2)
+            {
+                DrawRoundedWindow(e, rectSurface, rectBorder, smoothSize);
+            }
+            else
+            {
+                DrawNormalWindow(e, rectSurface);
+            }
+        }
+
+        protected override void OnScroll(ScrollEventArgs se)
+        {
+            base.OnScroll(se);
+            this.Invalidate();
+        }
         #endregion
     }
 }

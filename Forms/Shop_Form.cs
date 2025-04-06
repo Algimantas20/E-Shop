@@ -15,9 +15,9 @@ namespace E_Shop.Forms
     public partial class Shop_Form : Form
     {
         #region -> Variables
-        private readonly int _itemWidth = 250;
-        private readonly int _itemHeight = 300;
-        private readonly int _itemSpacing = 10;
+        private const int _itemWidth = 250;
+        private const int _itemHeight = 300;
+        private const int _itemSpacing = 10;
         #endregion
 
         public Shop_Form()
@@ -26,19 +26,10 @@ namespace E_Shop.Forms
 
             new A_Form(this).Apply(shop_Panel, side_Panel);
             this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
+            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
             this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
-            this.FormClosing += (s, e) =>
-            {
-                if (shop_Panel.Controls != null)
-                {
-                    foreach (Control control in shop_Panel.Controls)
-                    {
-                        control.Dispose();
-                    }
 
-                    shop_Panel.Controls.Clear();
-                }
-            };
+            this.FormClosing += (s, e) => A_Panel.ClearPanel(shop_Panel);
 
 
             if (User.Privilege != "Admin")
@@ -141,11 +132,12 @@ namespace E_Shop.Forms
             {
                 return new Product
                 (
+                    Id: int.Parse(product["Id"].ToString()),
                     title: product["Product_Name"].ToString(),
                     description: product["Product_Description"].ToString(),
                     price: float.Parse(product["Product_Price"].ToString()),
                     image: BinaryToImage(product["Product_Image"] as Byte[])
-                );
+                ); 
             }
             catch (Exception ex)
             {
