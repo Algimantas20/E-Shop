@@ -53,7 +53,8 @@ namespace E_Shop.Forms.Sub_Forms
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
                 MessageBox.Show("Works");
                 A_Button.OpenForm<Shop_Form>(this);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 e_Shop_DatabaseDataSet.RejectChanges();
 

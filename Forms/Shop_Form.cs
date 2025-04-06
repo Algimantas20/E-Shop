@@ -15,9 +15,9 @@ namespace E_Shop.Forms
     public partial class Shop_Form : Form
     {
         #region -> Variables
-        private readonly int _itemWidth = 250;
-        private readonly int _itemHeight = 300;
-        private readonly int _itemSpacing = 10;
+        private const int _itemWidth = 250;
+        private const int _itemHeight = 300;
+        private const int _itemSpacing = 10;
         #endregion
 
         public Shop_Form()
