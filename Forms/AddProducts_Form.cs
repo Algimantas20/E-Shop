@@ -35,8 +35,6 @@ namespace E_Shop.Forms
         {
             binaryImage = File.ReadAllBytes(filePath);
         }
-        #endregion
-
         private void Picture_Button_Click(object sender, EventArgs e)
         {
             try
@@ -99,15 +97,14 @@ namespace E_Shop.Forms
             }
             finally
             {
-               productName_TextBox.Texts = null;
-               description_TextBox.Texts = null;
-               price_TextBox.Texts = null;
-               picture_Button.Text = "File";
+                productName_TextBox.Texts = null;
+                description_TextBox.Texts = null;
+                price_TextBox.Texts = null;
+                picture_Button.Text = "File";
 
-               _binaryImage = null;
+                _binaryImage = null;
             }
         }
-
         private void Preview_Button_Click(object sender, EventArgs e)
         {
             try
@@ -132,6 +129,9 @@ namespace E_Shop.Forms
             await Task.Delay(2);
             this.Hide();
         }
+        #endregion
+
+
     }
 }
 

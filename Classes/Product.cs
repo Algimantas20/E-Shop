@@ -11,6 +11,7 @@ namespace E_Shop.Classes
         private Image _image;
         public Product(int Id, string title, string description, float price, Image image)
         {
+            _id = Id;
             _title = title;
             _description = description;
             _price = price;

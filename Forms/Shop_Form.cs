@@ -35,6 +35,7 @@ namespace E_Shop.Forms
             if (User.Privilege != "Admin")
                 addProducts_Button.Visible = false;
         }
+
         #region -> Private Methods
 
         private async void Shop_Form_Load(object sender, EventArgs e)
@@ -104,6 +105,7 @@ namespace E_Shop.Forms
 
                 foreach (DataRow row in table.Rows)
                 {
+                    Debug.WriteLine(row["Id"]);
                     if (row.Field<int>("Id") <= 0)
                     {
                         return new List<Product>();

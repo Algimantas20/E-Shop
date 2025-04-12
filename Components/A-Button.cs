@@ -157,25 +157,25 @@ namespace E_Shop.Components
         {
             this.Invalidate();
         }
-        public async static void OpenForm<TargetForm>(Form form) where TargetForm : Form, new()
+        public async static void OpenForm<TargetForm>(Form currentForm) where TargetForm : Form, new()
         {
             TargetForm newForm = new TargetForm()
             {
                 StartPosition = FormStartPosition.Manual,
-                Location = form.Location
+                Location = currentForm.Location
             };
             newForm.Show();
             newForm.BringToFront();
             await Task.Delay(100);
 
-            if (form.GetType() == typeof(SignIn_Form))
+            if (currentForm.GetType() == typeof(SignIn_Form))
             {
-                form.Hide();
+                currentForm.Hide();
                 return;
             }
 
-            form.Dispose();
-            form.Close();
+            currentForm.Dispose();
+            currentForm.Close();
 
             GC.Collect();
             GC.WaitForPendingFinalizers();

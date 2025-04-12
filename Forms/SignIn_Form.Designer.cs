@@ -135,7 +135,7 @@
             this.password_TextBox.Multiline = false;
             this.password_TextBox.Name = "password_TextBox";
             this.password_TextBox.Padding = new System.Windows.Forms.Padding(13, 9, 13, 9);
-            this.password_TextBox.PasswordChar = true;
+            this.password_TextBox.PasswordChar = false;
             this.password_TextBox.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.password_TextBox.PlaceholderText = "Password";
             this.password_TextBox.Size = new System.Drawing.Size(471, 35);
