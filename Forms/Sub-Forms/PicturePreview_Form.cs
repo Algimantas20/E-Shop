@@ -10,12 +10,12 @@ namespace E_Shop.Forms.Sub_Forms
         public PicturePreview_Form(string filePath)
         {
             InitializeComponent();
-            new A_Form(this).Apply(picture_PictureBox);
-
-            this.back_Button.Click += (s, e) => { this.Close(); this.Dispose(); };
+            SubscribeMethods();
 
             GetImageFromFile(filePath);
         }
+
+
         #region -> Private Methods
         private void GetImageFromFile(string filePath)
         {
@@ -35,6 +35,13 @@ namespace E_Shop.Forms.Sub_Forms
             {
                 MessageBox.Show($"Error loading image: {ex.Message}");
             }
+        }
+
+        private void SubscribeMethods()
+        {
+            new A_Form(this).Apply(picture_PictureBox);
+
+            this.back_Button.Click += (s, e) => { this.Close(); this.Dispose(); };
         }
         #endregion
     }

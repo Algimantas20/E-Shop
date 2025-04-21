@@ -15,22 +15,17 @@ namespace E_Shop.Forms
     public partial class Shop_Form : Form
     {
         #region -> Variables
+
         private const int _itemWidth = 250;
         private const int _itemHeight = 300;
         private const int _itemSpacing = 10;
+
         #endregion
 
         public Shop_Form()
         {
             InitializeComponent();
-
-            new A_Form(this).Apply(shop_Panel, side_Panel);
-            this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
-            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
-
-            this.FormClosing += (s, e) => A_Panel.ClearPanel(shop_Panel);
-
+            SubscribeMethods();
 
             if (User.Privilege != "Admin")
                 addProducts_Button.Visible = false;
@@ -38,10 +33,18 @@ namespace E_Shop.Forms
 
         #region -> Private Methods
 
+        private void SubscribeMethods()
+        {
+            new A_Form(this).Apply(shop_Panel, side_Panel);
+            this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
+            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+            this.FormClosing += (s, e) => A_Panel.ClearPanel(shop_Panel);
+        }
         private async void Shop_Form_Load(object sender, EventArgs e)
         {
             this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
-            await GenerateItemWindowsAsync();
+            await AddWindowsToPanelAsync();
         }
         private async void SignOut_Button_Click(object sender, EventArgs e)
         {
@@ -55,7 +58,7 @@ namespace E_Shop.Forms
             await Task.Delay(2);
             this.Hide();
         }
-        private async Task GenerateItemWindowsAsync()
+        private async Task AddWindowsToPanelAsync()
         {
             var products = await Task.Run(() => GetProducts());
 
@@ -67,25 +70,29 @@ namespace E_Shop.Forms
 
             foreach (var product in products)
             {
-                var itemWindow = new A_ItemWindow(product, this)
-                {
-                    Location = new Point(x, y)
-                };
-
-                shop_Panel.Controls.Add(itemWindow);
-
-                count++;
-                x += _itemWidth + _itemSpacing;
-                if (count >= itemsPerRow)
-                {
-                    count = 0;
-                    x = 10;
-                    y += _itemHeight + _itemSpacing;
-                }
+                GenerateAWindow(itemsPerRow, ref x, ref y, ref count, product);
             }
 
             shop_Panel.PerformLayout();
             shop_Panel.Refresh();
+        }
+        private void GenerateAWindow(int itemsPerRow, ref int x, ref int y, ref int count, Product product)
+        {
+            var itemWindow = new A_ItemWindow(product, this)
+            {
+                Location = new Point(x, y)
+            };
+
+            shop_Panel.Controls.Add(itemWindow);
+
+            count++;
+            x += _itemWidth + _itemSpacing;
+            if (count >= itemsPerRow)
+            {
+                count = 0;
+                x = 10;
+                y += _itemHeight + _itemSpacing;
+            }
         }
 
         #endregion
@@ -105,21 +112,13 @@ namespace E_Shop.Forms
 
                 foreach (DataRow row in table.Rows)
                 {
-                    Debug.WriteLine(row["Id"]);
-                    if (row.Field<int>("Id") <= 0)
-                    {
-                        return new List<Product>();
-                    }   
-
                     var product = FormAProduct(row);
                     formattedProducts.Add(product);
-                    
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error fetching products: {ex.Message}");
-                throw new Exception("Error fetching products", ex);
             }
 
             return formattedProducts;
@@ -128,6 +127,7 @@ namespace E_Shop.Forms
         #endregion
 
         #region -> Data Formatting
+
         private Product FormAProduct(DataRow product)
         {
             try
@@ -144,10 +144,9 @@ namespace E_Shop.Forms
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error forming product: {ex.Message}");
-                throw ex;
+                throw;
             }
         }
-
         public static Image BinaryToImage(Byte[] binaryData)
         {
             if (binaryData == null || binaryData.Length == 0)
@@ -170,7 +169,7 @@ namespace E_Shop.Forms
                 return null;
             }
         }
-        #endregion
 
+        #endregion
     }
 }

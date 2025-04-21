@@ -1,10 +1,10 @@
 ﻿using E_Shop.Classes;
-using E_Shop.Database;
 using E_Shop.Components;
+using static E_Shop.Database.E_Shop_DatabaseDataSet;
+
 using System;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace E_Shop.Forms
 {
@@ -13,23 +13,19 @@ namespace E_Shop.Forms
         public SignUp_Form()
         {
             InitializeComponent();
-            new A_Form(this).Apply(signUp_Panel);
-
-            this.back_Button.Click += (s, e) => A_Button.OpenForm<SignIn_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+            SubscribeMethods();
         }
-        #region -> Private Methods
+
+        #region -> Event Handlers
+
         private void SignUp_Form_Load(object sender, EventArgs e)
         {
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
         }
+
         private void SignIn_Button_Click(object sender, EventArgs e)
         {
-            string username = username_TextBox.Texts;
-            string password = password_TextBox.Texts;
-            string first_name = firstName_TextBox.Texts;
-            string last_name = lastName_TextBox.Texts;
-            string email = email_TextBox.Texts;
+            var (username, password, first_name, last_name, email) = GetUserData();
 
             bool isNull = CheckIfNull(username, password, first_name, last_name, email);
             if (isNull)
@@ -41,20 +37,12 @@ namespace E_Shop.Forms
 
             try
             {
-                E_Shop_DatabaseDataSet.UsersRow newUserRow;
-                newUserRow = e_Shop_DatabaseDataSet.Users.NewUsersRow();
-
-                newUserRow.Username = username;
-                newUserRow.Password = password;
-                newUserRow.First_Name = first_name;
-                newUserRow.Last_Name = last_name;
-                newUserRow.Email = email;
-                newUserRow.Privilege = "User";
+                UsersRow newUserRow = GenerateNewRow(username, password, first_name, last_name, email);
 
                 this.e_Shop_DatabaseDataSet.Users.Rows.Add(newUserRow);
                 newUserRow.EndEdit();
-                int rowsAffected = this.usersTableAdapter.Update(e_Shop_DatabaseDataSet.Users);
 
+                this.usersTableAdapter.Update(e_Shop_DatabaseDataSet.Users);
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
 
                 MessageHelper.PrintOutMessage("User registered successfully!", error_Label, MessageType.Success);
@@ -66,6 +54,28 @@ namespace E_Shop.Forms
                 return;
             }
         }
+
+        #endregion
+
+        #region -> Private Methods
+
+        private (string Username , string password, string first_name, string last_name, string email) GetUserData()
+        {
+            return (username_TextBox.Texts,
+                    password_TextBox.Texts, 
+                    firstName_TextBox.Texts,
+                    lastName_TextBox.Texts,
+                    email_TextBox.Texts);
+        }
+
+        private void SubscribeMethods()
+        {
+            new A_Form(this).Apply(signUp_Panel);
+
+            this.back_Button.Click += (s, e) => A_Button.OpenForm<SignIn_Form>(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+        }
+
         private bool CheckIfNull(string username, string password, string first_name, string last_name, string email)
         {
 
@@ -85,6 +95,7 @@ namespace E_Shop.Forms
                 return false;
             }
         }
+
         private bool ValidateEmail(string email)
         {
             Regex validate_Email = new Regex("^\\S+@\\S+\\.\\S+$");
@@ -99,6 +110,21 @@ namespace E_Shop.Forms
                 return false;
             }
         }
+
+        private UsersRow GenerateNewRow(string username, string password, string first_name, string last_name, string email)
+        {
+            UsersRow newUserRow = e_Shop_DatabaseDataSet.Users.NewUsersRow();
+
+            newUserRow.Username = username;
+            newUserRow.Password = HashHelper.HashPassword(password);
+            newUserRow.First_Name = first_name;
+            newUserRow.Last_Name = last_name;
+            newUserRow.Email = email;
+            newUserRow.Privilege = "User";
+
+            return newUserRow;
+        }
+
         #endregion
     }
 }

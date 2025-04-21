@@ -5,7 +5,7 @@
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -15,6 +15,7 @@
         {
             if (disposing)
             {
+                components?.Dispose();
                 if (_product.Image != null)
                 {
                     _product.Image.Dispose();
@@ -36,6 +37,7 @@
             this.title_label = new System.Windows.Forms.Label();
             this.image_Box = new System.Windows.Forms.PictureBox();
             this.price_label = new System.Windows.Forms.Label();
+            this.amount_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.image_Box)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,11 +79,25 @@
             this.price_label.Text = "0";
             this.price_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // amount_label
+            // 
+            this.amount_label.BackColor = System.Drawing.Color.Transparent;
+            this.amount_label.Enabled = false;
+            this.amount_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.amount_label.ForeColor = System.Drawing.Color.Silver;
+            this.amount_label.Location = new System.Drawing.Point(207, 268);
+            this.amount_label.Name = "amount_label";
+            this.amount_label.Size = new System.Drawing.Size(40, 23);
+            this.amount_label.TabIndex = 5;
+            this.amount_label.Text = "0";
+            this.amount_label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // A_ItemWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(31)))), ((int)(((byte)(34)))));
+            this.Controls.Add(this.amount_label);
             this.Controls.Add(this.price_label);
             this.Controls.Add(this.image_Box);
             this.Controls.Add(this.title_label);
@@ -96,5 +112,6 @@
         private System.Windows.Forms.Label title_label;
         private System.Windows.Forms.PictureBox image_Box;
         private System.Windows.Forms.Label price_label;
+        private System.Windows.Forms.Label amount_label;
     }
 }

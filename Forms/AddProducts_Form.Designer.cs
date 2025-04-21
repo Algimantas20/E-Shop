@@ -76,7 +76,6 @@
             this.tableAdapterManager.CartTableAdapter = null;
             this.tableAdapterManager.OrdersTableAdapter = null;
             this.tableAdapterManager.ProductsTableAdapter = this.productsTableAdapter;
-            this.tableAdapterManager.QuantityTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             this.tableAdapterManager.UsersTableAdapter = null;
             // 
@@ -366,6 +365,7 @@
             // 
             // AddProducts_Form
             // 
+            this.AcceptButton = this.upload_Button;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(1000, 600);

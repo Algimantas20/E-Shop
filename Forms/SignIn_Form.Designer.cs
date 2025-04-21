@@ -135,7 +135,7 @@
             this.password_TextBox.Multiline = false;
             this.password_TextBox.Name = "password_TextBox";
             this.password_TextBox.Padding = new System.Windows.Forms.Padding(13, 9, 13, 9);
-            this.password_TextBox.PasswordChar = false;
+            this.password_TextBox.PasswordChar = true;
             this.password_TextBox.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.password_TextBox.PlaceholderText = "Password";
             this.password_TextBox.Size = new System.Drawing.Size(471, 35);
@@ -206,12 +206,12 @@
             this.tableAdapterManager.CartTableAdapter = null;
             this.tableAdapterManager.OrdersTableAdapter = null;
             this.tableAdapterManager.ProductsTableAdapter = null;
-            this.tableAdapterManager.QuantityTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             this.tableAdapterManager.UsersTableAdapter = this.usersTableAdapter;
             // 
             // SignIn_Form
             // 
+            this.AcceptButton = this.signIn_Button;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(1110, 600);

@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\HashHelper.cs" />
     <Compile Include="Classes\MessageHelper.cs" />
     <Compile Include="Classes\Product.cs" />
     <Compile Include="Classes\User.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Database\E_Shop_DatabaseDataSet.xsc">
       <DependentUpon>E_Shop_DatabaseDataSet.xsd</DependentUpon>

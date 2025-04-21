@@ -5,7 +5,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using System.Diagnostics;
+using System.Data;
 
 
 namespace E_Shop.Components
@@ -13,28 +13,30 @@ namespace E_Shop.Components
     public partial class A_ItemWindow : UserControl
     {
         #region -> Variables
-        private Product _product;
-        private Form _parentForm;
+
+        private readonly Product _product;
+        private readonly Form _parentForm;
 
         private int _borderRadius = 15;
-        private int _borderSize = 2;
+        private const int _borderSize = 2;
         private Color _borderColor;
+
         #endregion
 
-        public A_ItemWindow(Product product, Form parentForm)
+        public A_ItemWindow(Product product, Form parentForm, bool isAmountVisible = false)
         {
             _product = product;
             _parentForm = parentForm;
 
             InitializeComponent();
-
-            title_label.Text = _product.Title;
-            price_label.Text = $"€{_product.Price}";
-            image_Box.Image = _product.Image;
             Cursor = Cursors.Hand;
 
-            this.Resize += Window_Resize;
-            this.Click += OpenProductPage;
+            if (!isAmountVisible)
+                amount_label.Visible = false;
+
+            ChangeText();
+
+            SubscribeMethods();
         }
 
         #region -> Border
@@ -60,7 +62,6 @@ namespace E_Shop.Components
             path.CloseFigure();
             return path;
         }
-
 
         private void DrawNormalWindow(PaintEventArgs pevent, Rectangle rectSurface)
         {
@@ -118,6 +119,7 @@ namespace E_Shop.Components
             if (this.Parent != null)
                 this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
         }
+
         #endregion
 
         #region -> Private Methods
@@ -125,11 +127,13 @@ namespace E_Shop.Components
         {
             this.Invalidate();
         }
+
         private void Window_Resize(object sender, EventArgs e)
         {
             if (_borderRadius > this.Height)
                 _borderRadius = this.Height;
         }
+
         private void OpenProductPage(object sender, EventArgs e)
         {
             _parentForm.Close();
@@ -139,6 +143,20 @@ namespace E_Shop.Components
                 form.Location = _parentForm.Location;
             }
             form.ShowDialog();
+        }
+
+        private void SubscribeMethods()
+        {
+            this.Resize += Window_Resize;
+            this.Click += OpenProductPage;
+        }
+
+        private void ChangeText()
+        {
+            title_label.Text = _product.Title;
+            price_label.Text = $"€{_product.Price}";
+            image_Box.Image = _product.Image;
+
         }
         #endregion
 

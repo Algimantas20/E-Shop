@@ -1,6 +1,6 @@
 ﻿using E_Shop.Classes;
-using E_Shop.Components;
 using E_Shop.Forms;
+using E_Shop.Components;
 
 using System;
 using System.Data;
@@ -13,21 +13,19 @@ namespace E_Shop
         public SignIn_Form()
         {
             InitializeComponent();
-
-            new A_Form(this).Apply(signIn_Panel);
-
-            this.registerButton.Click += (s, e) => A_Button.OpenForm<SignUp_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
-
+            SubscribeMethods();
         }
-        #region -> Private Methods
-        private void SignIn_Form_Load(object sender, EventArgs e) =>
+
+        #region -> Event Handlers
+
+        private void SignIn_Form_Load(object sender, EventArgs e)
+        {
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
+        }
 
         private void SignIn_Button_Click(object sender, EventArgs e)
         {
-            string username = username_TextBox.Texts;
-            string password = password_TextBox.Texts;
+            (string username, string password) = GetUserData();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -37,22 +35,15 @@ namespace E_Shop
 
             try
             {
-                DataRow[] users = this.e_Shop_DatabaseDataSet.Users.Select($"Username = '{username}'");
-                DataRow user = users[0];
+                bool isValidUser = GetAndValidateUser(username, password, out DataRow user);
 
-                string realPassword = user["Password"].ToString();
-
-                if (realPassword != password)
+                if (!isValidUser)
                 {
-                    MessageHelper.PrintOutMessage("Incorrect password", output_Label, MessageType.Error);
+                    MessageHelper.PrintOutMessage("Invalid username or password!", output_Label, MessageType.Error);
                     return;
                 }
 
-                User.Id = Convert.ToInt32(user["Id"]);
-                User.Username = user["Username"].ToString();
-                User.First_Name = user["First_Name"].ToString();
-                User.Last_Name = user["Last_Name"].ToString();
-                User.Privilege = user["Privilege"].ToString();
+                LogInUser(user);
 
                 MessageHelper.PrintOutMessage("Success", output_Label, MessageType.Success);
                 A_Button.OpenForm<Shop_Form>(this);
@@ -62,9 +53,54 @@ namespace E_Shop
                 MessageHelper.PrintOutMessage(ex.Message, output_Label, MessageType.Error);
             }
         }
+
         #endregion
 
+        #region -> User Methods
 
+        private static void LogInUser(DataRow user)
+        {
+            User.Id = Convert.ToInt32(user["Id"]);
+            User.Username = user["Username"].ToString();
+            User.First_Name = user["First_Name"].ToString();
+            User.Last_Name = user["Last_Name"].ToString();
+            User.Privilege = user["Privilege"].ToString();
+        }
+
+        private (string Username, string Password) GetUserData()
+        {
+            return (username_TextBox.Texts.Trim(), password_TextBox.Texts.Trim());
+        }
+
+        private bool GetAndValidateUser(string username, string password, out DataRow user)
+        {
+            DataRow[] users = this.e_Shop_DatabaseDataSet.Users.Select($"Username = '{username.Replace("'", "''")}'");
+
+            if (users.Length == 0)
+            {
+                user = null;
+                return false;
+            }
+
+            user = users[0];
+            string storedPassword = user["Password"].ToString().Trim();
+
+            string enteredHashedPassword = HashHelper.HashPassword(password);
+
+            return storedPassword == enteredHashedPassword;
+        }
+
+        #endregion
+
+        #region -> Private Methods
+
+        private void SubscribeMethods()
+        {
+            new A_Form(this).Apply(signIn_Panel);
+            this.registerButton.Click += (s, e) => A_Button.OpenForm<SignUp_Form>(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+        }
+
+        #endregion
     }
 }
-

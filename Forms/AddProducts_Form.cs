@@ -1,7 +1,7 @@
 ﻿using E_Shop.Classes;
 using E_Shop.Components;
-using E_Shop.Database;
 using E_Shop.Forms.Sub_Forms;
+using static E_Shop.Database.E_Shop_DatabaseDataSet;
 
 using System;
 using System.IO;
@@ -17,24 +17,16 @@ namespace E_Shop.Forms
         public AddProducts_Form()
         {
             InitializeComponent();
-
-            new A_Form(this).Apply(addProduct_Panel, side_Panel);
-            this.shop_Button.Click += (s, e) => A_Button.OpenForm<Shop_Form>(this);
-            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
-
-            this.FormClosing += (s, e) => A_Panel.ClearPanel(addProduct_Panel);
+            SubscribeMethods();
         }
 
-        #region -> Private Methods
+        #region -> Event Handlers
+
         private void Shop_Form_Load(object sender, EventArgs e)
         {
             this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
         }
-        private void ConverImageToBinary(string filePath, ref byte[] binaryImage)
-        {
-            binaryImage = File.ReadAllBytes(filePath);
-        }
+
         private void Picture_Button_Click(object sender, EventArgs e)
         {
             try
@@ -50,7 +42,7 @@ namespace E_Shop.Forms
                 {
                     _filePath = dialog.FileName;
                     picture_Button.Text = Path.GetFileName(dialog.FileName);
-                    ConverImageToBinary(_filePath, ref _binaryImage);
+                    ConvertImageToBinary(_filePath, ref _binaryImage);
                 }
             }
             catch (Exception ex)
@@ -58,6 +50,7 @@ namespace E_Shop.Forms
                 MessageHelper.PrintOutMessage(ex.Message, error_Label, MessageType.Error);
             }
         }
+
         private void Upload_Button_Click(object sender, EventArgs e)
         {
             string productName = productName_TextBox.Texts;
@@ -65,6 +58,7 @@ namespace E_Shop.Forms
 
             string productPrice = price_TextBox.Texts;
             bool isValidPrice = float.TryParse(productPrice, out float price);
+
             if (!isValidPrice)
             {
                 MessageHelper.PrintOutMessage("Invalid Price", error_Label, MessageType.Error);
@@ -73,17 +67,12 @@ namespace E_Shop.Forms
 
             try
             {
-                E_Shop_DatabaseDataSet.ProductsRow newProductRow;
-                newProductRow = e_Shop_DatabaseDataSet.Products.NewProductsRow();
-
-                newProductRow.Product_Name = productName;
-                newProductRow.Product_Description = productDescription;
-                newProductRow.Product_Price = price;
-                newProductRow.Product_Image = _binaryImage;
+                ProductsRow newProductRow = GenerateNewRow(productName, productDescription, price);
 
                 this.e_Shop_DatabaseDataSet.Products.Rows.Add(newProductRow);
                 newProductRow.EndEdit();
-                int rowsAffected = this.productsTableAdapter.Update(e_Shop_DatabaseDataSet.Products);
+
+                this.productsTableAdapter.Update(e_Shop_DatabaseDataSet.Products);
 
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
 
@@ -93,30 +82,29 @@ namespace E_Shop.Forms
             {
                 MessageHelper.PrintOutMessage("An error occured while uploading the product", error_Label, MessageType.Error);
                 e_Shop_DatabaseDataSet.RejectChanges();
-                return;
+                throw;
             }
             finally
             {
-                productName_TextBox.Texts = null;
-                description_TextBox.Texts = null;
-                price_TextBox.Texts = null;
-                picture_Button.Text = "File";
-
-                _binaryImage = null;
+                RefreshThePage();
             }
         }
+
         private void Preview_Button_Click(object sender, EventArgs e)
         {
             try
             {
-                PicturePreview_Form form = new PicturePreview_Form(_filePath);
-                form.ShowDialog();
+                using (PicturePreview_Form form = new PicturePreview_Form(_filePath))
+                {
+                    form.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error opening the preview form: " + ex.Message);
             }
         }
+
         private async void SignOut_Button_Click(object sender, EventArgs e)
         {
             User.SignOut();
@@ -129,9 +117,52 @@ namespace E_Shop.Forms
             await Task.Delay(2);
             this.Hide();
         }
+
         #endregion
 
+        #region -> Private Methods
 
+        private void ConvertImageToBinary(string filePath, ref byte[] binaryImage)
+        {
+            if(string.IsNullOrEmpty(filePath))
+                throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+
+            binaryImage = File.ReadAllBytes(filePath);
+        }
+
+        private void SubscribeMethods()
+        {
+            new A_Form(this).Apply(addProduct_Panel, side_Panel);
+            this.shop_Button.Click += (s, e) => A_Button.OpenForm<Shop_Form>(this);
+            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+
+            this.FormClosing += (s, e) => A_Panel.ClearPanel(addProduct_Panel);
+        }
+
+        private void RefreshThePage()
+        {
+            productName_TextBox.Texts = null;
+            description_TextBox.Texts = null;
+            price_TextBox.Texts = null;
+            picture_Button.Text = "File";
+            _filePath = null;
+            _binaryImage = null;
+        }
+
+        private ProductsRow GenerateNewRow(string productName, string productDescription, float price)
+        {
+            ProductsRow newProductRow = e_Shop_DatabaseDataSet.Products.NewProductsRow();
+
+            newProductRow.Product_Name = productName;
+            newProductRow.Product_Description = productDescription;
+            newProductRow.Product_Price = price;
+            newProductRow.Product_Image = _binaryImage;
+
+            return newProductRow;
+        }
+
+        #endregion
     }
 }
 

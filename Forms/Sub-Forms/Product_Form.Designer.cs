@@ -31,21 +31,21 @@
             this.components = new System.ComponentModel.Container();
             this.back_Button = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Label();
+            this.e_Shop_DatabaseDataSet = new E_Shop.Database.E_Shop_DatabaseDataSet();
+            this.cartBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cartTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.CartTableAdapter();
+            this.tableAdapterManager = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager();
             this.product_Panel = new E_Shop.Components.A_Panel();
+            this.image_Box = new System.Windows.Forms.PictureBox();
             this.addToCart_Button = new E_Shop.Components.A_Button();
             this.editProduct_Button = new E_Shop.Components.A_Button();
             this.price_label = new System.Windows.Forms.Label();
             this.description_label = new System.Windows.Forms.Label();
             this.title_Label = new System.Windows.Forms.Label();
-            this.product_PictureBox = new System.Windows.Forms.PictureBox();
-            this.e_Shop_DatabaseDataSet = new E_Shop.Database.E_Shop_DatabaseDataSet();
-            this.cartBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cartTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.CartTableAdapter();
-            this.tableAdapterManager = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager();
-            this.product_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.product_PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartBindingSource)).BeginInit();
+            this.product_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.image_Box)).BeginInit();
             this.SuspendLayout();
             // 
             // back_Button
@@ -72,23 +72,58 @@
             this.exitButton.TabIndex = 4;
             this.exitButton.Text = "X";
             // 
+            // e_Shop_DatabaseDataSet
+            // 
+            this.e_Shop_DatabaseDataSet.DataSetName = "E_Shop_DatabaseDataSet";
+            this.e_Shop_DatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // cartBindingSource
+            // 
+            this.cartBindingSource.DataMember = "Cart";
+            this.cartBindingSource.DataSource = this.e_Shop_DatabaseDataSet;
+            // 
+            // cartTableAdapter
+            // 
+            this.cartTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CartTableAdapter = this.cartTableAdapter;
+            this.tableAdapterManager.OrdersTableAdapter = null;
+            this.tableAdapterManager.ProductsTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UsersTableAdapter = null;
+            // 
             // product_Panel
             // 
-            this.product_Panel.BackColor = System.Drawing.Color.White;
+            this.product_Panel.BackColor = System.Drawing.Color.DimGray;
             this.product_Panel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.product_Panel.BorderRadius = 15;
             this.product_Panel.BorderSize = 2;
+            this.product_Panel.Controls.Add(this.image_Box);
             this.product_Panel.Controls.Add(this.addToCart_Button);
             this.product_Panel.Controls.Add(this.editProduct_Button);
             this.product_Panel.Controls.Add(this.price_label);
             this.product_Panel.Controls.Add(this.description_label);
             this.product_Panel.Controls.Add(this.title_Label);
-            this.product_Panel.Controls.Add(this.product_PictureBox);
             this.product_Panel.Location = new System.Drawing.Point(16, 40);
             this.product_Panel.Margin = new System.Windows.Forms.Padding(4);
             this.product_Panel.Name = "product_Panel";
             this.product_Panel.Size = new System.Drawing.Size(971, 547);
             this.product_Panel.TabIndex = 6;
+            // 
+            // image_Box
+            // 
+            this.image_Box.BackColor = System.Drawing.Color.Transparent;
+            this.image_Box.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.image_Box.Enabled = false;
+            this.image_Box.Location = new System.Drawing.Point(20, 15);
+            this.image_Box.Name = "image_Box";
+            this.image_Box.Size = new System.Drawing.Size(349, 350);
+            this.image_Box.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.image_Box.TabIndex = 7;
+            this.image_Box.TabStop = false;
             // 
             // addToCart_Button
             // 
@@ -160,42 +195,6 @@
             this.title_Label.Text = "Title";
             this.title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // product_PictureBox
-            // 
-            this.product_PictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.product_PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.product_PictureBox.Location = new System.Drawing.Point(19, 15);
-            this.product_PictureBox.Margin = new System.Windows.Forms.Padding(4);
-            this.product_PictureBox.Name = "product_PictureBox";
-            this.product_PictureBox.Size = new System.Drawing.Size(350, 350);
-            this.product_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.product_PictureBox.TabIndex = 0;
-            this.product_PictureBox.TabStop = false;
-            // 
-            // e_Shop_DatabaseDataSet
-            // 
-            this.e_Shop_DatabaseDataSet.DataSetName = "E_Shop_DatabaseDataSet";
-            this.e_Shop_DatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // cartBindingSource
-            // 
-            this.cartBindingSource.DataMember = "Cart";
-            this.cartBindingSource.DataSource = this.e_Shop_DatabaseDataSet;
-            // 
-            // cartTableAdapter
-            // 
-            this.cartTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CartTableAdapter = this.cartTableAdapter;
-            this.tableAdapterManager.OrdersTableAdapter = null;
-            this.tableAdapterManager.ProductsTableAdapter = null;
-            this.tableAdapterManager.QuantityTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            this.tableAdapterManager.UsersTableAdapter = null;
-            // 
             // Product_Form
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -210,10 +209,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Product_Form";
             this.Load += new System.EventHandler(this.Product_Form_Load);
-            this.product_Panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.product_PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartBindingSource)).EndInit();
+            this.product_Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.image_Box)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,12 +226,12 @@
         private System.Windows.Forms.Label price_label;
         private System.Windows.Forms.Label description_label;
         private System.Windows.Forms.Label title_Label;
-        private System.Windows.Forms.PictureBox product_PictureBox;
         private Components.A_Button editProduct_Button;
         private Components.A_Button addToCart_Button;
         private Database.E_Shop_DatabaseDataSet e_Shop_DatabaseDataSet;
         private System.Windows.Forms.BindingSource cartBindingSource;
         private Database.E_Shop_DatabaseDataSetTableAdapters.CartTableAdapter cartTableAdapter;
         private Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.PictureBox image_Box;
     }
 }

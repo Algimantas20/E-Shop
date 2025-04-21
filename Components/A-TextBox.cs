@@ -152,7 +152,7 @@ namespace E_Shop.Components
             get
             {
                 if (isPlaceholder) return "";
-                else return textBox1.Text;
+                else return textBox1.Text.Trim();
             }
             set
             {

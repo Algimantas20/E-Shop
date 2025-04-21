@@ -96,7 +96,6 @@
             this.tableAdapterManager.CartTableAdapter = this.cartTableAdapter;
             this.tableAdapterManager.OrdersTableAdapter = null;
             this.tableAdapterManager.ProductsTableAdapter = null;
-            this.tableAdapterManager.QuantityTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             this.tableAdapterManager.UsersTableAdapter = null;
             // 
