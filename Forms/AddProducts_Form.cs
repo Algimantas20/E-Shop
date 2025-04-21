@@ -53,10 +53,8 @@ namespace E_Shop.Forms
 
         private void Upload_Button_Click(object sender, EventArgs e)
         {
-            string productName = productName_TextBox.Texts;
-            string productDescription = description_TextBox.Texts;
+            var(productName, productDescription, productPrice) = GetProductData();
 
-            string productPrice = price_TextBox.Texts;
             bool isValidPrice = float.TryParse(productPrice, out float price);
 
             if (!isValidPrice)
@@ -70,8 +68,6 @@ namespace E_Shop.Forms
                 ProductsRow newProductRow = GenerateNewRow(productName, productDescription, price);
 
                 this.e_Shop_DatabaseDataSet.Products.Rows.Add(newProductRow);
-                newProductRow.EndEdit();
-
                 this.productsTableAdapter.Update(e_Shop_DatabaseDataSet.Products);
 
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
@@ -82,7 +78,7 @@ namespace E_Shop.Forms
             {
                 MessageHelper.PrintOutMessage("An error occured while uploading the product", error_Label, MessageType.Error);
                 e_Shop_DatabaseDataSet.RejectChanges();
-                throw;
+                return;
             }
             finally
             {
@@ -102,6 +98,7 @@ namespace E_Shop.Forms
             catch (Exception ex)
             {
                 MessageBox.Show("Error opening the preview form: " + ex.Message);
+                return;
             }
         }
 
@@ -121,6 +118,11 @@ namespace E_Shop.Forms
         #endregion
 
         #region -> Private Methods
+
+        private (string Name, string Description, string Price) GetProductData()
+        {
+            return (productName_TextBox.Texts, description_TextBox.Texts, price_TextBox.Texts);
+        }
 
         private void ConvertImageToBinary(string filePath, ref byte[] binaryImage)
         {
@@ -158,6 +160,7 @@ namespace E_Shop.Forms
             newProductRow.Product_Description = productDescription;
             newProductRow.Product_Price = price;
             newProductRow.Product_Image = _binaryImage;
+            newProductRow.EndEdit();
 
             return newProductRow;
         }

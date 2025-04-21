@@ -91,6 +91,7 @@
             this.amount_label.TabIndex = 5;
             this.amount_label.Text = "0";
             this.amount_label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.amount_label.Visible = false;
             // 
             // A_ItemWindow
             // 

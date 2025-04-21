@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace E_Shop.Forms
 {
@@ -31,20 +32,12 @@ namespace E_Shop.Forms
                 addProducts_Button.Visible = false;
         }
 
-        #region -> Private Methods
+        #region -> Event Handlers
 
-        private void SubscribeMethods()
-        {
-            new A_Form(this).Apply(shop_Panel, side_Panel);
-            this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
-            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
-            this.FormClosing += (s, e) => A_Panel.ClearPanel(shop_Panel);
-        }
         private async void Shop_Form_Load(object sender, EventArgs e)
         {
             this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
-            await AddWindowsToPanelAsync();
+            await GenerateItemWindowsAsync();
         }
         private async void SignOut_Button_Click(object sender, EventArgs e)
         {
@@ -58,41 +51,54 @@ namespace E_Shop.Forms
             await Task.Delay(2);
             this.Hide();
         }
-        private async Task AddWindowsToPanelAsync()
+
+        #endregion
+
+        #region -> Private Methods
+
+        private void SubscribeMethods()
         {
-            var products = await Task.Run(() => GetProducts());
+            new A_Form(this).Apply(shop_Panel, side_Panel);
+            this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
+            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+            this.FormClosing += (s, e) => A_Panel.ClearPanel(shop_Panel);
+        }
 
-            int itemsPerRow = (shop_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing);
-            int x = 10, y = 10;
-            int count = 0;
+        private async Task GenerateItemWindowsAsync()
+        {
+            var products = await Task.Run(GetProducts);
 
+            if (products == null || products.Count == 0)
+            {
+                Debug.WriteLine("No products found in cart.");
+                return;
+            }
+
+            shop_Panel.SuspendLayout();
             shop_Panel.Controls.Clear();
 
-            foreach (var product in products)
-            {
-                GenerateAWindow(itemsPerRow, ref x, ref y, ref count, product);
-            }
+            int itemsPerRow = Math.Max(1, (shop_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing));
 
-            shop_Panel.PerformLayout();
+            var itemWindows = GenerateItemWindows(products, itemsPerRow);
+
+            itemWindows.ToList()
+                .ForEach(item => shop_Panel.Controls.Add(item));
+
+            shop_Panel.ResumeLayout();
             shop_Panel.Refresh();
         }
-        private void GenerateAWindow(int itemsPerRow, ref int x, ref int y, ref int count, Product product)
+
+        private IEnumerable<A_ItemWindow> GenerateItemWindows(List<Product> products, int itemsPerRow)
         {
-            var itemWindow = new A_ItemWindow(product, this)
-            {
-                Location = new Point(x, y)
-            };
-
-            shop_Panel.Controls.Add(itemWindow);
-
-            count++;
-            x += _itemWidth + _itemSpacing;
-            if (count >= itemsPerRow)
-            {
-                count = 0;
-                x = 10;
-                y += _itemHeight + _itemSpacing;
-            }
+            return products.Select((product, index) =>
+                new A_ItemWindow(product, this)
+                {
+                    Location = new Point(
+                        x: 10 + (index % itemsPerRow) * (_itemWidth + _itemSpacing),
+                        y: 10 + (index / itemsPerRow) * (_itemHeight + _itemSpacing)
+                    )
+                });
         }
 
         #endregion

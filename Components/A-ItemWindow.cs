@@ -5,7 +5,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using System.Data;
+using System.Diagnostics;
 
 
 namespace E_Shop.Components
@@ -23,7 +23,7 @@ namespace E_Shop.Components
 
         #endregion
 
-        public A_ItemWindow(Product product, Form parentForm, bool isAmountVisible = false)
+        public A_ItemWindow(Product product, Form parentForm, int amount = 0, bool isAmountVisible = false)
         {
             _product = product;
             _parentForm = parentForm;
@@ -31,8 +31,8 @@ namespace E_Shop.Components
             InitializeComponent();
             Cursor = Cursors.Hand;
 
-            if (!isAmountVisible)
-                amount_label.Visible = false;
+            if (isAmountVisible)
+                DisplayProductAmount(amount);
 
             ChangeText();
 
@@ -123,6 +123,17 @@ namespace E_Shop.Components
         #endregion
 
         #region -> Private Methods
+
+        private void DisplayProductAmount(int amount)
+        {
+            amount_label.Visible = true;
+
+            if (amount == 0)
+                return;
+
+            amount_label.Text = $"{amount}";
+        }
+
         private void Container_BackColorChanged(object sender, EventArgs e)
         {
             this.Invalidate();

@@ -1,10 +1,10 @@
 ﻿using E_Shop.Classes;
 using E_Shop.Components;
 
-using System.Data;
 using System;
 using System.IO;
 using System.Linq;
+using System.Data;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -29,7 +29,7 @@ namespace E_Shop.Forms
 
         #region -> Event Handlers
 
-        private async void ViewCart_Form_Load(object sender, System.EventArgs e)
+        private async void ViewCart_Form_Load(object sender, EventArgs e)
         {
             this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
             this.cartTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Cart);
@@ -37,7 +37,6 @@ namespace E_Shop.Forms
         }
 
         #endregion
-
 
         #region -> Private Methods
 
@@ -48,6 +47,30 @@ namespace E_Shop.Forms
             this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
             this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
             this.FormClosing += (s, e) => A_Panel.ClearPanel(viewCart_Panel);
+        }
+
+        private async Task GenerateItemWindowsAsync()
+        {
+            var products = await Task.Run(GetCart);
+
+            if (products == null || products.Count == 0)
+            {
+                Debug.WriteLine("No products found in cart.");
+                return;
+            }
+
+            viewCart_Panel.SuspendLayout();
+            viewCart_Panel.Controls.Clear();
+
+            int itemsPerRow = Math.Max(1, (viewCart_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing));
+
+            var itemWindows = GenerateItemWindows(products, itemsPerRow);
+
+            itemWindows.ToList()
+                .ForEach(item => viewCart_Panel.Controls.Add(item));
+
+            viewCart_Panel.ResumeLayout();
+            viewCart_Panel.Refresh();
         }
 
         private Image BinaryToImage(Byte[] binaryData)
@@ -73,54 +96,17 @@ namespace E_Shop.Forms
             }
         }
 
-        private async Task GenerateItemWindowsAsync()
+        private int GetAmount(Product product)
         {
-            var products = await Task.Run(() => GetCart());
+            DataRow[] rows = this.e_Shop_DatabaseDataSet.Cart
+                .Select($"User_Id = '{User.Id}' AND Product_Id = '{product.ID}'");
 
-            int itemsPerRow = (viewCart_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing);
-            int x = 10, y = 10;
-            int count = 0;
-
-            viewCart_Panel.Controls.Clear();
-
-            foreach (var product in products)
+            if (rows.Length <= 0)
             {
-               
-                var itemWindow = new A_ItemWindow(product, this, true)
-                {
-                    Location = new Point(x, y)
-                };
-
-                viewCart_Panel.Controls.Add(itemWindow);
-
-                count++;
-                x += _itemWidth + _itemSpacing;
-                if (count >= itemsPerRow)
-                {
-                    count = 0;
-                    x = 10;
-                    y += _itemHeight + _itemSpacing;
-                }
+                throw new Exception("Product not found in cart");
             }
 
-            viewCart_Panel.PerformLayout();
-            viewCart_Panel.Refresh();
-        }
-
-        private List<Product> FormProducts(DataRow[] productRows)
-        {
-            var products = new List<Product>();
-            foreach(DataRow productRow in productRows)
-            {
-                products.Add(new Product(
-                    Id: int.Parse(productRow["Id"].ToString()),
-                    title: productRow["Product_Name"].ToString(),
-                    description: productRow["Product_Description"].ToString(),
-                    price: float.Parse(productRow["Product_Price"].ToString()),
-                    image: BinaryToImage(productRow["Product_Image"] as Byte[])
-                ));
-            }
-            return products;
+            return int.Parse(rows[0]["Amount"].ToString());
         }
 
         private List<Product> GetCart()
@@ -155,6 +141,34 @@ namespace E_Shop.Forms
             }
 
             return idArray;
+        }
+
+        private List<Product> FormProducts(DataRow[] productRows)
+        {
+            var products = new List<Product>();
+            foreach (DataRow productRow in productRows)
+            {
+                products.Add(new Product(
+                    Id: int.Parse(productRow["Id"].ToString()),
+                    title: productRow["Product_Name"].ToString(),
+                    description: productRow["Product_Description"].ToString(),
+                    price: float.Parse(productRow["Product_Price"].ToString()),
+                    image: BinaryToImage(productRow["Product_Image"] as Byte[])
+                ));
+            }
+            return products;
+        }
+
+        private IEnumerable<A_ItemWindow> GenerateItemWindows(List<Product> products, int itemsPerRow)
+        {
+            return products.Select((product, index) =>
+                new A_ItemWindow(product, this, GetAmount(product), true)
+                {
+                    Location = new Point(
+                        x: 10 + (index % itemsPerRow) * (_itemWidth + _itemSpacing),
+                        y: 10 + (index / itemsPerRow) * (_itemHeight + _itemSpacing)
+                    )
+                });
         }
 
         #endregion

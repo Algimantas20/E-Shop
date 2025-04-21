@@ -6,6 +6,7 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace E_Shop.Forms.Sub_Forms
 {
@@ -98,7 +99,6 @@ namespace E_Shop.Forms.Sub_Forms
             row.EndEdit();
 
             this.cartTableAdapter.Update(e_Shop_DatabaseDataSet.Cart);
-
             this.e_Shop_DatabaseDataSet.AcceptChanges();
         }
 
