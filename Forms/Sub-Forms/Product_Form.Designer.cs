@@ -42,6 +42,8 @@
             this.price_label = new System.Windows.Forms.Label();
             this.description_label = new System.Windows.Forms.Label();
             this.title_Label = new System.Windows.Forms.Label();
+            this.amount_label = new System.Windows.Forms.Label();
+            this.output_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartBindingSource)).BeginInit();
             this.product_Panel.SuspendLayout();
@@ -97,10 +99,12 @@
             // 
             // product_Panel
             // 
-            this.product_Panel.BackColor = System.Drawing.Color.DimGray;
+            this.product_Panel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.product_Panel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.product_Panel.BorderRadius = 15;
             this.product_Panel.BorderSize = 2;
+            this.product_Panel.Controls.Add(this.output_label);
+            this.product_Panel.Controls.Add(this.amount_label);
             this.product_Panel.Controls.Add(this.image_Box);
             this.product_Panel.Controls.Add(this.addToCart_Button);
             this.product_Panel.Controls.Add(this.editProduct_Button);
@@ -172,10 +176,11 @@
             this.price_label.Name = "price_label";
             this.price_label.Size = new System.Drawing.Size(350, 27);
             this.price_label.TabIndex = 3;
-            this.price_label.Text = "Price";
+            this.price_label.Text = "Price:";
             // 
             // description_label
             // 
+            this.description_label.BackColor = System.Drawing.Color.Transparent;
             this.description_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.description_label.Location = new System.Drawing.Point(381, 79);
             this.description_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -194,6 +199,28 @@
             this.title_Label.TabIndex = 1;
             this.title_Label.Text = "Title";
             this.title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // amount_label
+            // 
+            this.amount_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.amount_label.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.amount_label.Location = new System.Drawing.Point(19, 396);
+            this.amount_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.amount_label.Name = "amount_label";
+            this.amount_label.Size = new System.Drawing.Size(350, 27);
+            this.amount_label.TabIndex = 8;
+            this.amount_label.Text = "Amount:";
+            // 
+            // output_label
+            // 
+            this.output_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.output_label.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.output_label.Location = new System.Drawing.Point(22, 437);
+            this.output_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.output_label.Name = "output_label";
+            this.output_label.Size = new System.Drawing.Size(930, 27);
+            this.output_label.TabIndex = 9;
+            this.output_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Product_Form
             // 
@@ -233,5 +260,7 @@
         private Database.E_Shop_DatabaseDataSetTableAdapters.CartTableAdapter cartTableAdapter;
         private Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.PictureBox image_Box;
+        private System.Windows.Forms.Label amount_label;
+        private System.Windows.Forms.Label output_label;
     }
 }

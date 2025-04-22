@@ -5,6 +5,7 @@ using E_Shop.Components;
 using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace E_Shop
 {
@@ -23,13 +24,13 @@ namespace E_Shop
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
         }
 
-        private void SignIn_Button_Click(object sender, EventArgs e)
+        private async void SignIn_Button_Click(object sender, EventArgs e)
         {
             (string username, string password) = GetUserData();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageHelper.PrintOutMessage("Please fill out all fields!", output_Label, MessageType.Warning);
+                await MessageHelper.PrintOutMessage("Please fill out all fields!", output_Label, MessageType.Warning);
                 return;
             }
 
@@ -39,18 +40,18 @@ namespace E_Shop
 
                 if (!isValidUser)
                 {
-                    MessageHelper.PrintOutMessage("Invalid username or password!", output_Label, MessageType.Error);
+                    await MessageHelper.PrintOutMessage("Invalid username or password!", output_Label, MessageType.Error);
                     return;
                 }
 
                 LogInUser(user);
 
-                MessageHelper.PrintOutMessage("Success", output_Label, MessageType.Success);
+                await MessageHelper.PrintOutMessage("Success", output_Label, MessageType.Success);
                 A_Button.OpenForm<Shop_Form>(this);
             }
             catch (Exception ex)
             {
-                MessageHelper.PrintOutMessage(ex.Message, output_Label, MessageType.Error);
+                await MessageHelper.PrintOutMessage(ex.Message, output_Label, MessageType.Error);
             }
         }
 

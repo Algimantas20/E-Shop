@@ -31,15 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewCart_Form));
             this.side_Panel = new System.Windows.Forms.Panel();
+            this.addProducts_Button = new E_Shop.Components.A_SidePanelButton();
+            this.viewCart_Button = new E_Shop.Components.A_SidePanelButton();
+            this.shop_Button = new E_Shop.Components.A_SidePanelButton();
+            this.signOut_Button = new E_Shop.Components.A_Button();
             this.exitButton = new System.Windows.Forms.Label();
             this.e_Shop_DatabaseDataSet = new E_Shop.Database.E_Shop_DatabaseDataSet();
             this.cartBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cartTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.CartTableAdapter();
             this.tableAdapterManager = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager();
-            this.addProducts_Button = new E_Shop.Components.A_SidePanelButton();
-            this.viewCart_Button = new E_Shop.Components.A_SidePanelButton();
-            this.shop_Button = new E_Shop.Components.A_SidePanelButton();
-            this.signOut_Button = new E_Shop.Components.A_Button();
             this.productsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productsTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.ProductsTableAdapter();
             this.viewCart_Panel = new E_Shop.Components.A_Panel();
@@ -60,44 +60,8 @@
             this.side_Panel.Location = new System.Drawing.Point(0, 0);
             this.side_Panel.Margin = new System.Windows.Forms.Padding(4);
             this.side_Panel.Name = "side_Panel";
-            this.side_Panel.Size = new System.Drawing.Size(183, 607);
+            this.side_Panel.Size = new System.Drawing.Size(183, 600);
             this.side_Panel.TabIndex = 6;
-            // 
-            // exitButton
-            // 
-            this.exitButton.AutoSize = true;
-            this.exitButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.exitButton.Location = new System.Drawing.Point(961, 9);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(26, 25);
-            this.exitButton.TabIndex = 7;
-            this.exitButton.Text = "X";
-            // 
-            // e_Shop_DatabaseDataSet
-            // 
-            this.e_Shop_DatabaseDataSet.DataSetName = "E_Shop_DatabaseDataSet";
-            this.e_Shop_DatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // cartBindingSource
-            // 
-            this.cartBindingSource.DataMember = "Cart";
-            this.cartBindingSource.DataSource = this.e_Shop_DatabaseDataSet;
-            // 
-            // cartTableAdapter
-            // 
-            this.cartTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CartTableAdapter = this.cartTableAdapter;
-            this.tableAdapterManager.OrdersTableAdapter = null;
-            this.tableAdapterManager.ProductsTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            this.tableAdapterManager.UsersTableAdapter = null;
             // 
             // addProducts_Button
             // 
@@ -173,6 +137,42 @@
             this.signOut_Button.TextColor = System.Drawing.Color.Silver;
             this.signOut_Button.UseVisualStyleBackColor = false;
             // 
+            // exitButton
+            // 
+            this.exitButton.AutoSize = true;
+            this.exitButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.exitButton.Location = new System.Drawing.Point(961, 9);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(26, 25);
+            this.exitButton.TabIndex = 7;
+            this.exitButton.Text = "X";
+            // 
+            // e_Shop_DatabaseDataSet
+            // 
+            this.e_Shop_DatabaseDataSet.DataSetName = "E_Shop_DatabaseDataSet";
+            this.e_Shop_DatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // cartBindingSource
+            // 
+            this.cartBindingSource.DataMember = "Cart";
+            this.cartBindingSource.DataSource = this.e_Shop_DatabaseDataSet;
+            // 
+            // cartTableAdapter
+            // 
+            this.cartTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CartTableAdapter = this.cartTableAdapter;
+            this.tableAdapterManager.OrdersTableAdapter = null;
+            this.tableAdapterManager.ProductsTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UsersTableAdapter = null;
+            // 
             // productsBindingSource
             // 
             this.productsBindingSource.DataMember = "Products";
@@ -200,7 +200,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
-            this.ClientSize = new System.Drawing.Size(1007, 607);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.viewCart_Panel);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.side_Panel);

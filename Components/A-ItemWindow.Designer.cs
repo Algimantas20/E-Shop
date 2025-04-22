@@ -3,11 +3,6 @@
     partial class A_ItemWindow
     {
         /// <summary> 
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components;
-
-        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -15,7 +10,6 @@
         {
             if (disposing)
             {
-                components?.Dispose();
                 if (_product.Image != null)
                 {
                     _product.Image.Dispose();
@@ -74,7 +68,7 @@
             this.price_label.ForeColor = System.Drawing.Color.Silver;
             this.price_label.Location = new System.Drawing.Point(3, 268);
             this.price_label.Name = "price_label";
-            this.price_label.Size = new System.Drawing.Size(145, 23);
+            this.price_label.Size = new System.Drawing.Size(93, 23);
             this.price_label.TabIndex = 4;
             this.price_label.Text = "0";
             this.price_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -85,9 +79,9 @@
             this.amount_label.Enabled = false;
             this.amount_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.amount_label.ForeColor = System.Drawing.Color.Silver;
-            this.amount_label.Location = new System.Drawing.Point(207, 268);
+            this.amount_label.Location = new System.Drawing.Point(102, 268);
             this.amount_label.Name = "amount_label";
-            this.amount_label.Size = new System.Drawing.Size(40, 23);
+            this.amount_label.Size = new System.Drawing.Size(145, 23);
             this.amount_label.TabIndex = 5;
             this.amount_label.Text = "0";
             this.amount_label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

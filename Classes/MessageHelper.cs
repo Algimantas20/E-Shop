@@ -1,12 +1,17 @@
 ﻿using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace E_Shop.Classes
 {
     internal static class MessageHelper
     {
-        public static void PrintOutMessage(string message, Label label, MessageType type = MessageType.Success)
+        public static async Task PrintOutMessage(string message, Label label, MessageType type = MessageType.Success)
         {
+            label.Text = string.Empty;
+
+            await Task.Delay(50);
+
             label.Text = message;
 
             switch (type)

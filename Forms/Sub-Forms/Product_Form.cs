@@ -6,7 +6,7 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace E_Shop.Forms.Sub_Forms
 {
@@ -36,12 +36,12 @@ namespace E_Shop.Forms.Sub_Forms
         #endregion
 
         #region -> Private Methods
-        private void AppendOrderToDB()
+        private async void AppendOrderToDB()
         {
             DataRow row = e_Shop_DatabaseDataSet.Cart.Select($"User_Id = '{User.Id}' AND Product_Id = '{_product.ID}'").FirstOrDefault();
             if (CheckIfItemIsInCart(row))
             {
-                ChangeProductAmount(row);
+                await ChangeProductAmount(row);
                 return;
             }
 
@@ -53,13 +53,12 @@ namespace E_Shop.Forms.Sub_Forms
                 this.cartTableAdapter.Update(e_Shop_DatabaseDataSet.Cart);
 
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
-
-                A_Button.OpenForm<Shop_Form>(this);
+                await MessageHelper.PrintOutMessage("Product amount updated successfully.", output_label, MessageType.Success);
             }
             catch (Exception ex)
             {
                 e_Shop_DatabaseDataSet.RejectChanges();
-                throw new Exception(ex.Message);
+                await MessageHelper.PrintOutMessage(ex.Message, output_label, MessageType.Error);
             }
         }
 
@@ -86,20 +85,29 @@ namespace E_Shop.Forms.Sub_Forms
 
             newCartRow.User_Id = User.Id;
             newCartRow.Product_Id = _product.ID;
-            newCartRow.Amount = 0;
+            newCartRow.Amount = 1;
             newCartRow.EndEdit();
 
             return newCartRow;
         }
 
-        private void ChangeProductAmount(DataRow row)
+        private async Task ChangeProductAmount(DataRow row)
         {
-            row.BeginEdit();
-            row["Amount"] = int.Parse(row["Amount"].ToString()) + 1;
-            row.EndEdit();
+            try
+            {
+                row.BeginEdit();
+                row["Amount"] = int.Parse(row["Amount"].ToString()) + 1;
+                row.EndEdit();
 
-            this.cartTableAdapter.Update(e_Shop_DatabaseDataSet.Cart);
-            this.e_Shop_DatabaseDataSet.AcceptChanges();
+                this.cartTableAdapter.Update(e_Shop_DatabaseDataSet.Cart);
+                this.e_Shop_DatabaseDataSet.AcceptChanges();
+                await MessageHelper.PrintOutMessage("Product amount updated successfully.", output_label, MessageType.Success);
+            }
+            catch (Exception ex)
+            {
+                e_Shop_DatabaseDataSet.RejectChanges();
+                await MessageHelper.PrintOutMessage(ex.Message, output_label, MessageType.Error);
+            }
         }
 
         private bool CheckIfItemIsInCart(DataRow dataRow)

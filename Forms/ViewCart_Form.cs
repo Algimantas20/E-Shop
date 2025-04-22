@@ -25,6 +25,9 @@ namespace E_Shop.Forms
         {
             InitializeComponent();
             SubscribeMethods();
+
+            if (User.Privilege != "Admin")
+                addProducts_Button.Visible = false;
         }
 
         #region -> Event Handlers

@@ -131,7 +131,7 @@ namespace E_Shop.Components
             if (amount == 0)
                 return;
 
-            amount_label.Text = $"{amount}";
+            amount_label.Text = $"Amount: {amount}";
         }
 
         private void Container_BackColorChanged(object sender, EventArgs e)

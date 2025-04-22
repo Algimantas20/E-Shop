@@ -27,7 +27,7 @@ namespace E_Shop.Forms
             this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
         }
 
-        private void Picture_Button_Click(object sender, EventArgs e)
+        private async void Picture_Button_Click(object sender, EventArgs e)
         {
             try
             {
@@ -47,11 +47,11 @@ namespace E_Shop.Forms
             }
             catch (Exception ex)
             {
-                MessageHelper.PrintOutMessage(ex.Message, error_Label, MessageType.Error);
+                await MessageHelper.PrintOutMessage(ex.Message, error_Label, MessageType.Error);
             }
         }
 
-        private void Upload_Button_Click(object sender, EventArgs e)
+        private async void Upload_Button_Click(object sender, EventArgs e)
         {
             var(productName, productDescription, productPrice) = GetProductData();
 
@@ -59,7 +59,7 @@ namespace E_Shop.Forms
 
             if (!isValidPrice)
             {
-                MessageHelper.PrintOutMessage("Invalid Price", error_Label, MessageType.Error);
+                await MessageHelper.PrintOutMessage("Invalid Price", error_Label, MessageType.Error);
                 return;
             }
 
@@ -72,11 +72,11 @@ namespace E_Shop.Forms
 
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
 
-                MessageHelper.PrintOutMessage("Product uploaded successfully!", error_Label, MessageType.Success);
+                await MessageHelper.PrintOutMessage("Product uploaded successfully!", error_Label, MessageType.Success);
             }
             catch
             {
-                MessageHelper.PrintOutMessage("An error occured while uploading the product", error_Label, MessageType.Error);
+                await MessageHelper.PrintOutMessage("An error occured while uploading the product", error_Label, MessageType.Error);
                 e_Shop_DatabaseDataSet.RejectChanges();
                 return;
             }

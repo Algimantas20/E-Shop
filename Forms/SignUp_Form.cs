@@ -5,6 +5,7 @@ using static E_Shop.Database.E_Shop_DatabaseDataSet;
 using System;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace E_Shop.Forms
 {
@@ -23,15 +24,15 @@ namespace E_Shop.Forms
             this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
         }
 
-        private void SignIn_Button_Click(object sender, EventArgs e)
+        private async void SignIn_Button_Click(object sender, EventArgs e)
         {
             var (username, password, first_name, last_name, email) = GetUserData();
 
-            bool isNull = CheckIfNull(username, password, first_name, last_name, email);
+            bool isNull = await CheckIfNull(username, password, first_name, last_name, email);
             if (isNull)
                 return;
 
-            bool isValidEmail = ValidateEmail(email);
+            bool isValidEmail = await ValidateEmail(email);
             if (!isValidEmail)
                 return;
 
@@ -45,11 +46,11 @@ namespace E_Shop.Forms
                 this.usersTableAdapter.Update(e_Shop_DatabaseDataSet.Users);
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
 
-                MessageHelper.PrintOutMessage("User registered successfully!", error_Label, MessageType.Success);
+                await MessageHelper.PrintOutMessage("User registered successfully!", error_Label, MessageType.Success);
             }
             catch (Exception ex)
             {
-                MessageHelper.PrintOutMessage(ex.Message, error_Label, MessageType.Error);
+                await MessageHelper.PrintOutMessage(ex.Message, error_Label, MessageType.Error);
                 e_Shop_DatabaseDataSet.RejectChanges();
                 return;
             }
@@ -76,7 +77,7 @@ namespace E_Shop.Forms
             this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
         }
 
-        private bool CheckIfNull(string username, string password, string first_name, string last_name, string email)
+        private async Task<bool> CheckIfNull(string username, string password, string first_name, string last_name, string email)
         {
 
 
@@ -86,7 +87,7 @@ namespace E_Shop.Forms
                 string.IsNullOrEmpty(last_name) ||
                 string.IsNullOrEmpty(email))
             {
-                MessageHelper.PrintOutMessage("Please fill out all boxes", error_Label, MessageType.Warning);
+                await MessageHelper.PrintOutMessage("Please fill out all boxes", error_Label, MessageType.Warning);
                 return true;
             }
             else
@@ -96,7 +97,7 @@ namespace E_Shop.Forms
             }
         }
 
-        private bool ValidateEmail(string email)
+        private async Task<bool> ValidateEmail(string email)
         {
             Regex validate_Email = new Regex("^\\S+@\\S+\\.\\S+$");
             bool isValidEmail = validate_Email.IsMatch(email);
@@ -106,7 +107,7 @@ namespace E_Shop.Forms
             }
             else
             {
-                MessageHelper.PrintOutMessage("Invalid email", error_Label, MessageType.Error);
+                await MessageHelper.PrintOutMessage("Invalid email", error_Label, MessageType.Error);
                 return false;
             }
         }
