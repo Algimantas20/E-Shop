@@ -174,7 +174,6 @@ namespace E_Shop.Components
                 return;
             }
 
-            currentForm.Dispose();
             currentForm.Close();
 
             GC.Collect();

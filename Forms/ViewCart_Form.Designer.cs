@@ -43,6 +43,7 @@
             this.productsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productsTableAdapter = new E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters.ProductsTableAdapter();
             this.viewCart_Panel = new E_Shop.Components.A_Panel();
+            this.manageUserPrivilige_Button = new E_Shop.Components.A_SidePanelButton();
             this.side_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartBindingSource)).BeginInit();
@@ -52,6 +53,7 @@
             // side_Panel
             // 
             this.side_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.side_Panel.Controls.Add(this.manageUserPrivilige_Button);
             this.side_Panel.Controls.Add(this.addProducts_Button);
             this.side_Panel.Controls.Add(this.viewCart_Button);
             this.side_Panel.Controls.Add(this.shop_Button);
@@ -91,7 +93,7 @@
             this.viewCart_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.viewCart_Button.ForeColor = System.Drawing.Color.Silver;
             this.viewCart_Button.IsActive = true;
-            this.viewCart_Button.Location = new System.Drawing.Point(0, 175);
+            this.viewCart_Button.Location = new System.Drawing.Point(0, 176);
             this.viewCart_Button.Margin = new System.Windows.Forms.Padding(4);
             this.viewCart_Button.Name = "viewCart_Button";
             this.viewCart_Button.Size = new System.Drawing.Size(183, 49);
@@ -109,7 +111,7 @@
             this.shop_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.shop_Button.ForeColor = System.Drawing.Color.Silver;
             this.shop_Button.IsActive = false;
-            this.shop_Button.Location = new System.Drawing.Point(0, 117);
+            this.shop_Button.Location = new System.Drawing.Point(0, 119);
             this.shop_Button.Margin = new System.Windows.Forms.Padding(4);
             this.shop_Button.Name = "shop_Button";
             this.shop_Button.Size = new System.Drawing.Size(183, 49);
@@ -195,6 +197,24 @@
             this.viewCart_Panel.Size = new System.Drawing.Size(796, 549);
             this.viewCart_Panel.TabIndex = 8;
             // 
+            // manageUserPrivilige_Button
+            // 
+            this.manageUserPrivilige_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.manageUserPrivilige_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("manageUserPrivilige_Button.Button_Icon")));
+            this.manageUserPrivilige_Button.FlatAppearance.BorderSize = 0;
+            this.manageUserPrivilige_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.manageUserPrivilige_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.manageUserPrivilige_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.manageUserPrivilige_Button.ForeColor = System.Drawing.Color.Silver;
+            this.manageUserPrivilige_Button.IsActive = false;
+            this.manageUserPrivilige_Button.Location = new System.Drawing.Point(0, 290);
+            this.manageUserPrivilige_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.manageUserPrivilige_Button.Name = "manageUserPrivilige_Button";
+            this.manageUserPrivilige_Button.Size = new System.Drawing.Size(183, 49);
+            this.manageUserPrivilige_Button.TabIndex = 8;
+            this.manageUserPrivilige_Button.Text = "User Priviliges";
+            this.manageUserPrivilige_Button.UseVisualStyleBackColor = false;
+            // 
             // ViewCart_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,5 +252,6 @@
         private System.Windows.Forms.BindingSource productsBindingSource;
         private Database.E_Shop_DatabaseDataSetTableAdapters.ProductsTableAdapter productsTableAdapter;
         private Components.A_Panel viewCart_Panel;
+        private Components.A_SidePanelButton manageUserPrivilige_Button;
     }
 }

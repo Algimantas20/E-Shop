@@ -14,6 +14,7 @@ namespace E_Shop.Forms
     {
         private byte[] _binaryImage;
         private string _filePath;
+
         public AddProducts_Form()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace E_Shop.Forms
 
         private void Shop_Form_Load(object sender, EventArgs e)
         {
-            this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
+            this.productsTableAdapter.Fill(dataTable: this.e_Shop_DatabaseDataSet.Products);
         }
 
         private async void Picture_Button_Click(object sender, EventArgs e)
@@ -41,42 +42,42 @@ namespace E_Shop.Forms
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     _filePath = dialog.FileName;
-                    picture_Button.Text = Path.GetFileName(dialog.FileName);
-                    ConvertImageToBinary(_filePath, ref _binaryImage);
+                    picture_Button.Text = Path.GetFileName(path: dialog.FileName);
+                    ConvertImageToBinary(filePath: _filePath, binaryImage: ref _binaryImage);
                 }
             }
             catch (Exception ex)
             {
-                await MessageHelper.PrintOutMessage(ex.Message, error_Label, MessageType.Error);
+                await MessageHelper.Print(message: ex.Message, label: error_Label, type: MessageType.Error);
             }
         }
 
         private async void Upload_Button_Click(object sender, EventArgs e)
         {
-            var(productName, productDescription, productPrice) = GetProductData();
+            var (strProductName, strProductDescription, strProductPrice) = GetProductData();
 
-            bool isValidPrice = float.TryParse(productPrice, out float price);
+            bool isValidPrice = float.TryParse(s: strProductPrice, result: out float productPrice);
 
             if (!isValidPrice)
             {
-                await MessageHelper.PrintOutMessage("Invalid Price", error_Label, MessageType.Error);
+                await MessageHelper.Print(message: "Invalid Price", label: error_Label, type: MessageType.Error);
                 return;
             }
 
             try
             {
-                ProductsRow newProductRow = GenerateNewRow(productName, productDescription, price);
+                ProductsRow newProductRow = GenerateNewRow(Name: strProductName, Description: strProductDescription, Price: productPrice);
 
-                this.e_Shop_DatabaseDataSet.Products.Rows.Add(newProductRow);
-                this.productsTableAdapter.Update(e_Shop_DatabaseDataSet.Products);
+                this.e_Shop_DatabaseDataSet.Products.Rows.Add(row: newProductRow);
+                this.productsTableAdapter.Update(dataTable: e_Shop_DatabaseDataSet.Products);
 
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
 
-                await MessageHelper.PrintOutMessage("Product uploaded successfully!", error_Label, MessageType.Success);
+                await MessageHelper.Print(message: "Product uploaded successfully!", label: error_Label, type: MessageType.Success);
             }
             catch
             {
-                await MessageHelper.PrintOutMessage("An error occured while uploading the product", error_Label, MessageType.Error);
+                await MessageHelper.Print(message: "An error occured while uploading the product", label: error_Label, type: MessageType.Error);
                 e_Shop_DatabaseDataSet.RejectChanges();
                 return;
             }
@@ -90,14 +91,14 @@ namespace E_Shop.Forms
         {
             try
             {
-                using (PicturePreview_Form form = new PicturePreview_Form(_filePath))
+                using (PicturePreview_Form form = new PicturePreview_Form(filePath: _filePath))
                 {
                     form.ShowDialog();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error opening the preview form: " + ex.Message);
+                MessageBox.Show(text: "Error opening the preview form: " + ex.Message);
                 return;
             }
         }
@@ -105,13 +106,13 @@ namespace E_Shop.Forms
         private async void SignOut_Button_Click(object sender, EventArgs e)
         {
             User.SignOut();
-            SignIn_Form form = new SignIn_Form()
+            SignIn_Form form = new SignIn_Form
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = this.Location
             };
             form.Show();
-            await Task.Delay(2);
+            await Task.Delay(millisecondsDelay: 2);
             this.Hide();
         }
 
@@ -121,25 +122,25 @@ namespace E_Shop.Forms
 
         private (string Name, string Description, string Price) GetProductData()
         {
-            return (productName_TextBox.Texts, description_TextBox.Texts, price_TextBox.Texts);
+            return (Name: productName_TextBox.Texts, Description: description_TextBox.Texts, Price: price_TextBox.Texts);
         }
 
         private void ConvertImageToBinary(string filePath, ref byte[] binaryImage)
         {
-            if(string.IsNullOrEmpty(filePath))
-                throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+            if (string.IsNullOrEmpty(value: filePath))
+                throw new ArgumentException(message: "File path cannot be null or empty.", paramName: nameof(filePath));
 
-            binaryImage = File.ReadAllBytes(filePath);
+            binaryImage = File.ReadAllBytes(path: filePath);
         }
 
         private void SubscribeMethods()
         {
-            new A_Form(this).Apply(addProduct_Panel, side_Panel);
-            this.shop_Button.Click += (s, e) => A_Button.OpenForm<Shop_Form>(this);
-            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+            new A_Form(form: this).Apply(panels: new Panel[] { addProduct_Panel, side_Panel });
+            this.shop_Button.Click += (sender, e) => A_Button.OpenForm<Shop_Form>(currentForm: this);
+            this.viewCart_Button.Click += (sender, e) => A_Button.OpenForm<ViewCart_Form>(currentForm: this);
+            this.exitButton.Click += async (sender, e) => await A_Button.ExitApplication(form: this);
 
-            this.FormClosing += (s, e) => A_Panel.ClearPanel(addProduct_Panel);
+            //this.FormClosing += (sender, e) => A_Panel.ClearPanel(panel: addProduct_Panel);
         }
 
         private void RefreshThePage()
@@ -152,13 +153,13 @@ namespace E_Shop.Forms
             _binaryImage = null;
         }
 
-        private ProductsRow GenerateNewRow(string productName, string productDescription, float price)
+        private ProductsRow GenerateNewRow(string Name, string Description, float Price)
         {
             ProductsRow newProductRow = e_Shop_DatabaseDataSet.Products.NewProductsRow();
 
-            newProductRow.Product_Name = productName;
-            newProductRow.Product_Description = productDescription;
-            newProductRow.Product_Price = price;
+            newProductRow.Product_Name = Name;
+            newProductRow.Product_Description = Description;
+            newProductRow.Product_Price = Price;
             newProductRow.Product_Image = _binaryImage;
             newProductRow.EndEdit();
 
@@ -168,4 +169,3 @@ namespace E_Shop.Forms
         #endregion
     }
 }
-

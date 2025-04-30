@@ -52,17 +52,17 @@ namespace E_Shop.Components
         #region -> Public Methods
         public static void ClearPanel(A_Panel panel)
         {
-            if (panel == null)
-                return;
+            //if (panel == null)
+            //    return;
 
-            foreach (Control control in panel.Controls)
-            {
-                control.Dispose();
-            }
-
-            panel.Controls.Clear();
-            panel.Dispose();
+            //while (panel.Controls.Count > 0)
+            //{
+            //    Control ctrl = panel.Controls[0];
+            //    if (!ctrl.IsDisposed && !ctrl.Disposing)
+            //        ctrl.Dispose();
+            //}
         }
+
         #endregion
 
         #region -> Private Methods

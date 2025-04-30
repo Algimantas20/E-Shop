@@ -6,7 +6,7 @@ namespace E_Shop.Classes
 {
     internal static class MessageHelper
     {
-        public static async Task PrintOutMessage(string message, Label label, MessageType type = MessageType.Success)
+        public static async Task Print(string message, Label label, MessageType type = MessageType.Success)
         {
             label.Text = string.Empty;
 

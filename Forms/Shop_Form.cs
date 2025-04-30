@@ -36,19 +36,20 @@ namespace E_Shop.Forms
 
         private async void Shop_Form_Load(object sender, EventArgs e)
         {
-            this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
+            this.productsTableAdapter.Fill(dataTable: this.e_Shop_DatabaseDataSet.Products);
             await GenerateItemWindowsAsync();
         }
+
         private async void SignOut_Button_Click(object sender, EventArgs e)
         {
             User.SignOut();
-            SignIn_Form form = new SignIn_Form()
+            SignIn_Form form = new SignIn_Form
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = this.Location
             };
             form.Show();
-            await Task.Delay(2);
+            await Task.Delay(millisecondsDelay: 2);
             this.Hide();
         }
 
@@ -58,32 +59,34 @@ namespace E_Shop.Forms
 
         private void SubscribeMethods()
         {
-            new A_Form(this).Apply(shop_Panel, side_Panel);
-            this.addProducts_Button.Click += (s, e) => A_Button.OpenForm<AddProducts_Form>(this);
-            this.viewCart_Button.Click += (s, e) => A_Button.OpenForm<ViewCart_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
-            this.FormClosing += (s, e) => A_Panel.ClearPanel(shop_Panel);
+            new A_Form(form: this).Apply(panels: new Panel[] { shop_Panel, side_Panel });
+
+            this.addProducts_Button.Click += (sender, eventArgs) => A_Button.OpenForm<AddProducts_Form>(currentForm: this);
+            this.viewCart_Button.Click += (sender, eventArgs) => A_Button.OpenForm<ViewCart_Form>(currentForm: this);
+            this.exitButton.Click += async (sender, eventArgs) => await A_Button.ExitApplication(form: this);
+
+            //this.FormClosing += (sender, eventArgs) => A_Panel.ClearPanel(panel: shop_Panel);
         }
 
         private async Task GenerateItemWindowsAsync()
         {
-            var products = await Task.Run(GetProducts);
+            List<Product> products = await Task.Run(function: GetProducts);
 
             if (products == null || products.Count == 0)
             {
-                Debug.WriteLine("No products found in cart.");
+                Debug.WriteLine(message: "No products found in cart.");
                 return;
             }
 
             shop_Panel.SuspendLayout();
             shop_Panel.Controls.Clear();
 
-            int itemsPerRow = Math.Max(1, (shop_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing));
+            int itemsPerRow = Math.Max(val1: 1, val2: (shop_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing));
 
-            var itemWindows = GenerateItemWindows(products, itemsPerRow);
+            IEnumerable<A_ItemWindow> itemWindows = GenerateItemWindows(products: products, itemsPerRow: itemsPerRow);
 
             itemWindows.ToList()
-                .ForEach(item => shop_Panel.Controls.Add(item));
+                .ForEach(action: item => shop_Panel.Controls.Add(value: item));
 
             shop_Panel.ResumeLayout();
             shop_Panel.Refresh();
@@ -91,8 +94,8 @@ namespace E_Shop.Forms
 
         private IEnumerable<A_ItemWindow> GenerateItemWindows(List<Product> products, int itemsPerRow)
         {
-            return products.Select((product, index) =>
-                new A_ItemWindow(product, this)
+            return products.Select(selector: (product, index) =>
+                new A_ItemWindow(product: product, parentForm: this)
                 {
                     Location = new Point(
                         x: 10 + (index % itemsPerRow) * (_itemWidth + _itemSpacing),
@@ -107,24 +110,24 @@ namespace E_Shop.Forms
 
         private List<Product> GetProducts()
         {
-            var formattedProducts = new List<Product>();
+            List<Product> formattedProducts = new List<Product>();
 
             try
             {
-                var table = this.e_Shop_DatabaseDataSet.Products;
+                DataTable table = this.e_Shop_DatabaseDataSet.Products;
 
                 if (table == null || table.Rows.Count == 0)
                     return formattedProducts;
 
                 foreach (DataRow row in table.Rows)
                 {
-                    var product = FormAProduct(row);
-                    formattedProducts.Add(product);
+                    Product product = FormAProduct(product: row);
+                    formattedProducts.Add(item: product);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error fetching products: {ex.Message}");
+                Debug.WriteLine(message: $"Error fetching products: {ex.Message}");
             }
 
             return formattedProducts;
@@ -138,40 +141,40 @@ namespace E_Shop.Forms
         {
             try
             {
-                return new Product
-                (
-                    Id: int.Parse(product["Id"].ToString()),
+                return new Product(
+                    Id: int.Parse(s: product["Id"].ToString()),
                     title: product["Product_Name"].ToString(),
                     description: product["Product_Description"].ToString(),
-                    price: float.Parse(product["Product_Price"].ToString()),
-                    image: BinaryToImage(product["Product_Image"] as Byte[])
-                ); 
+                    price: float.Parse(s: product["Product_Price"].ToString()),
+                    image: BinaryToImage(binaryData: product["Product_Image"] as byte[])
+                );
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error forming product: {ex.Message}");
+                Debug.WriteLine(message: $"Error forming product: {ex.Message}");
                 throw;
             }
         }
-        public static Image BinaryToImage(Byte[] binaryData)
+
+        public static Image BinaryToImage(byte[] binaryData)
         {
             if (binaryData == null || binaryData.Length == 0)
             {
-                Debug.WriteLine("Binary data is empty or null.");
+                Debug.WriteLine(message: "Binary data is empty or null.");
                 return null;
             }
 
             try
             {
-                using (MemoryStream memStream = new MemoryStream(binaryData))
+                using (MemoryStream memStream = new MemoryStream(buffer: binaryData))
                 {
-                    Image img = Image.FromStream(memStream, useEmbeddedColorManagement: false, validateImageData: true);
+                    Image img = Image.FromStream(stream: memStream, useEmbeddedColorManagement: false, validateImageData: true);
                     return img;
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error converting binary data to image: {ex.Message}");
+                Debug.WriteLine(message: $"Error converting binary data to image: {ex.Message}");
                 return null;
             }
         }

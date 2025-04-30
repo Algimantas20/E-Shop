@@ -60,7 +60,7 @@ public class A_Form : Component
         _form.FormBorderStyle = FormBorderStyle.None;
         _form.StartPosition = FormStartPosition.CenterScreen;
         _form.Load += Form_Load;
-        _form.Resize += (s, e) => ApplyRoundedCorners();
+        _form.Resize += (sender, e) => ApplyRoundedCorners();
         _form.MouseDown += Form_MouseDown;
         _form.MouseMove += Form_MouseMove;
         _form.MouseUp += Form_MouseUp;
@@ -76,7 +76,6 @@ public class A_Form : Component
             panel.MouseMove += Form_MouseMove;
             panel.MouseUp += Form_MouseUp;
         }
-
     }
     #endregion 
 
@@ -90,11 +89,24 @@ public class A_Form : Component
     {
         if (_form != null && _form.Handle != IntPtr.Zero)
         {
-            IntPtr hRgn = CreateRoundRectRgn(0, 0, _form.Width, _form.Height, _cornerRadius, _cornerRadius);
-            SetWindowRgn(_form.Handle, hRgn, true);
+            IntPtr hRgn = CreateRoundRectRgn(
+                left: 0,
+                top: 0,
+                right: _form.Width,
+                bottom: _form.Height,
+                width: _cornerRadius,
+                height: _cornerRadius
+            );
+            SetWindowRgn(hWnd: _form.Handle, hRgn: hRgn, bRedraw: true);
 
-            MARGINS margins = new MARGINS() { Left = 1, Right = 1, Top = 1, Bottom = 1 };
-            DwmExtendFrameIntoClientArea(_form.Handle, ref margins);
+            MARGINS margins = new MARGINS
+            {
+                Left = 1,
+                Right = 1,
+                Top = 1,
+                Bottom = 1
+            };
+            DwmExtendFrameIntoClientArea(hWnd: _form.Handle, margins: ref margins);
         }
     }
 
@@ -112,8 +124,8 @@ public class A_Form : Component
     {
         if (_dragging)
         {
-            Point diff = Point.Subtract(Cursor.Position, new Size(_dragCursorPoint));
-            _form.Location = Point.Add(_dragFormPoint, new Size(diff));
+            Point diff = Point.Subtract(pt: Cursor.Position, sz: new Size(_dragCursorPoint));
+            _form.Location = Point.Add(pt: _dragFormPoint, sz: new Size(diff));
         }
     }
 

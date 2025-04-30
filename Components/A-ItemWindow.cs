@@ -16,6 +16,7 @@ namespace E_Shop.Components
 
         private readonly Product _product;
         private readonly Form _parentForm;
+        private readonly int _amount;
 
         private int _borderRadius = 15;
         private const int _borderSize = 2;
@@ -23,15 +24,16 @@ namespace E_Shop.Components
 
         #endregion
 
-        public A_ItemWindow(Product product, Form parentForm, int amount = 0, bool isAmountVisible = false)
+        public A_ItemWindow(Product product, Form parentForm, int amount = 0, bool isCart = false)
         {
             _product = product;
             _parentForm = parentForm;
+            _amount = amount;
 
             InitializeComponent();
             Cursor = Cursors.Hand;
 
-            if (isAmountVisible)
+            if (isCart)
                 DisplayProductAmount(amount);
 
             ChangeText();
@@ -148,7 +150,7 @@ namespace E_Shop.Components
         private void OpenProductPage(object sender, EventArgs e)
         {
             _parentForm.Close();
-            Product_Form form = new Product_Form(_product);
+            Product_Form form = new Product_Form(_product, _amount);
             {
                 form.StartPosition = FormStartPosition.Manual;
                 form.Location = _parentForm.Location;

@@ -46,11 +46,11 @@ namespace E_Shop.Forms
                 this.usersTableAdapter.Update(e_Shop_DatabaseDataSet.Users);
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
 
-                await MessageHelper.PrintOutMessage("User registered successfully!", error_Label, MessageType.Success);
+                await MessageHelper.Print("User registered successfully!", error_Label, MessageType.Success);
             }
             catch (Exception ex)
             {
-                await MessageHelper.PrintOutMessage(ex.Message, error_Label, MessageType.Error);
+                await MessageHelper.Print(ex.Message, error_Label, MessageType.Error);
                 e_Shop_DatabaseDataSet.RejectChanges();
                 return;
             }
@@ -87,7 +87,7 @@ namespace E_Shop.Forms
                 string.IsNullOrEmpty(last_name) ||
                 string.IsNullOrEmpty(email))
             {
-                await MessageHelper.PrintOutMessage("Please fill out all boxes", error_Label, MessageType.Warning);
+                await MessageHelper.Print("Please fill out all boxes", error_Label, MessageType.Warning);
                 return true;
             }
             else
@@ -107,7 +107,7 @@ namespace E_Shop.Forms
             }
             else
             {
-                await MessageHelper.PrintOutMessage("Invalid email", error_Label, MessageType.Error);
+                await MessageHelper.Print("Invalid email", error_Label, MessageType.Error);
                 return false;
             }
         }

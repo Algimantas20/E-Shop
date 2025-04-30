@@ -38,9 +38,10 @@
             this.shop_Panel = new E_Shop.Components.A_Panel();
             this.side_Panel = new System.Windows.Forms.Panel();
             this.addProducts_Button = new E_Shop.Components.A_SidePanelButton();
+            this.signOut_Button = new E_Shop.Components.A_Button();
             this.viewCart_Button = new E_Shop.Components.A_SidePanelButton();
             this.shop_Button = new E_Shop.Components.A_SidePanelButton();
-            this.signOut_Button = new E_Shop.Components.A_Button();
+            this.manageUserPrivilige_Button = new E_Shop.Components.A_SidePanelButton();
             ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource)).BeginInit();
             this.side_Panel.SuspendLayout();
@@ -98,9 +99,10 @@
             // side_Panel
             // 
             this.side_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.side_Panel.Controls.Add(this.addProducts_Button);
+            this.side_Panel.Controls.Add(this.manageUserPrivilige_Button);
             this.side_Panel.Controls.Add(this.viewCart_Button);
             this.side_Panel.Controls.Add(this.shop_Button);
+            this.side_Panel.Controls.Add(this.addProducts_Button);
             this.side_Panel.Controls.Add(this.signOut_Button);
             this.side_Panel.Dock = System.Windows.Forms.DockStyle.Left;
             this.side_Panel.Location = new System.Drawing.Point(0, 0);
@@ -127,42 +129,6 @@
             this.addProducts_Button.Text = "Add Products";
             this.addProducts_Button.UseVisualStyleBackColor = false;
             // 
-            // viewCart_Button
-            // 
-            this.viewCart_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.viewCart_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("viewCart_Button.Button_Icon")));
-            this.viewCart_Button.FlatAppearance.BorderSize = 0;
-            this.viewCart_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
-            this.viewCart_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.viewCart_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.viewCart_Button.ForeColor = System.Drawing.Color.Silver;
-            this.viewCart_Button.IsActive = false;
-            this.viewCart_Button.Location = new System.Drawing.Point(0, 175);
-            this.viewCart_Button.Margin = new System.Windows.Forms.Padding(4);
-            this.viewCart_Button.Name = "viewCart_Button";
-            this.viewCart_Button.Size = new System.Drawing.Size(183, 49);
-            this.viewCart_Button.TabIndex = 5;
-            this.viewCart_Button.Text = "View Cart";
-            this.viewCart_Button.UseVisualStyleBackColor = false;
-            // 
-            // shop_Button
-            // 
-            this.shop_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
-            this.shop_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("shop_Button.Button_Icon")));
-            this.shop_Button.FlatAppearance.BorderSize = 0;
-            this.shop_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
-            this.shop_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.shop_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.shop_Button.ForeColor = System.Drawing.Color.Silver;
-            this.shop_Button.IsActive = true;
-            this.shop_Button.Location = new System.Drawing.Point(0, 117);
-            this.shop_Button.Margin = new System.Windows.Forms.Padding(4);
-            this.shop_Button.Name = "shop_Button";
-            this.shop_Button.Size = new System.Drawing.Size(183, 49);
-            this.shop_Button.TabIndex = 4;
-            this.shop_Button.Text = "Shop";
-            this.shop_Button.UseVisualStyleBackColor = false;
-            // 
             // signOut_Button
             // 
             this.signOut_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
@@ -183,6 +149,60 @@
             this.signOut_Button.TextColor = System.Drawing.Color.Silver;
             this.signOut_Button.UseVisualStyleBackColor = false;
             this.signOut_Button.Click += new System.EventHandler(this.SignOut_Button_Click);
+            // 
+            // viewCart_Button
+            // 
+            this.viewCart_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.viewCart_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("viewCart_Button.Button_Icon")));
+            this.viewCart_Button.FlatAppearance.BorderSize = 0;
+            this.viewCart_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.viewCart_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.viewCart_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.viewCart_Button.ForeColor = System.Drawing.Color.Silver;
+            this.viewCart_Button.IsActive = false;
+            this.viewCart_Button.Location = new System.Drawing.Point(0, 176);
+            this.viewCart_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.viewCart_Button.Name = "viewCart_Button";
+            this.viewCart_Button.Size = new System.Drawing.Size(183, 49);
+            this.viewCart_Button.TabIndex = 9;
+            this.viewCart_Button.Text = "View Cart";
+            this.viewCart_Button.UseVisualStyleBackColor = false;
+            // 
+            // shop_Button
+            // 
+            this.shop_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.shop_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("shop_Button.Button_Icon")));
+            this.shop_Button.FlatAppearance.BorderSize = 0;
+            this.shop_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.shop_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.shop_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.shop_Button.ForeColor = System.Drawing.Color.Silver;
+            this.shop_Button.IsActive = true;
+            this.shop_Button.Location = new System.Drawing.Point(0, 119);
+            this.shop_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.shop_Button.Name = "shop_Button";
+            this.shop_Button.Size = new System.Drawing.Size(183, 49);
+            this.shop_Button.TabIndex = 8;
+            this.shop_Button.Text = "Shop";
+            this.shop_Button.UseVisualStyleBackColor = false;
+            // 
+            // manageUserPrivilige_Button
+            // 
+            this.manageUserPrivilige_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.manageUserPrivilige_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("manageUserPrivilige_Button.Button_Icon")));
+            this.manageUserPrivilige_Button.FlatAppearance.BorderSize = 0;
+            this.manageUserPrivilige_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.manageUserPrivilige_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.manageUserPrivilige_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.manageUserPrivilige_Button.ForeColor = System.Drawing.Color.Silver;
+            this.manageUserPrivilige_Button.IsActive = false;
+            this.manageUserPrivilige_Button.Location = new System.Drawing.Point(0, 290);
+            this.manageUserPrivilige_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.manageUserPrivilige_Button.Name = "manageUserPrivilige_Button";
+            this.manageUserPrivilige_Button.Size = new System.Drawing.Size(183, 49);
+            this.manageUserPrivilige_Button.TabIndex = 8;
+            this.manageUserPrivilige_Button.Text = "User Priviliges";
+            this.manageUserPrivilige_Button.UseVisualStyleBackColor = false;
             // 
             // Shop_Form
             // 
@@ -216,8 +236,9 @@
         private Components.A_Panel shop_Panel;
         private System.Windows.Forms.Panel side_Panel;
         private Components.A_SidePanelButton addProducts_Button;
+        private Components.A_Button signOut_Button;
         private Components.A_SidePanelButton viewCart_Button;
         private Components.A_SidePanelButton shop_Button;
-        private Components.A_Button signOut_Button;
+        private Components.A_SidePanelButton manageUserPrivilige_Button;
     }
 }

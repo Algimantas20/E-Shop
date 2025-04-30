@@ -6,6 +6,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using E_Shop.Forms.Sub_Forms;
 
 namespace E_Shop
 {
@@ -21,37 +22,37 @@ namespace E_Shop
 
         private void SignIn_Form_Load(object sender, EventArgs e)
         {
-            this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
+            this.usersTableAdapter.Fill(dataTable: this.e_Shop_DatabaseDataSet.Users);
         }
 
         private async void SignIn_Button_Click(object sender, EventArgs e)
         {
             (string username, string password) = GetUserData();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(value: username) || string.IsNullOrEmpty(value: password))
             {
-                await MessageHelper.PrintOutMessage("Please fill out all fields!", output_Label, MessageType.Warning);
+                await MessageHelper.Print(message: "Please fill out all fields!", label: output_Label, type: MessageType.Warning);
                 return;
             }
 
             try
             {
-                bool isValidUser = GetAndValidateUser(username, password, out DataRow user);
+                bool isValidUser = GetAndValidateUser(username: username, password: password, user: out DataRow user);
 
                 if (!isValidUser)
                 {
-                    await MessageHelper.PrintOutMessage("Invalid username or password!", output_Label, MessageType.Error);
+                    await MessageHelper.Print(message: "Invalid username or password!", label: output_Label, type: MessageType.Error);
                     return;
                 }
 
-                LogInUser(user);
+                LogInUser(user: user);
 
-                await MessageHelper.PrintOutMessage("Success", output_Label, MessageType.Success);
-                A_Button.OpenForm<Shop_Form>(this);
+                await MessageHelper.Print(message: "Success", label: output_Label, type: MessageType.Success);
+                A_Button.OpenForm<Shop_Form>(currentForm: this);
             }
             catch (Exception ex)
             {
-                await MessageHelper.PrintOutMessage(ex.Message, output_Label, MessageType.Error);
+                await MessageHelper.Print(message: ex.Message, label: output_Label, type: MessageType.Error);
             }
         }
 
@@ -61,7 +62,7 @@ namespace E_Shop
 
         private static void LogInUser(DataRow user)
         {
-            User.Id = Convert.ToInt32(user["Id"]);
+            User.Id = Convert.ToInt32(value: user["Id"]);
             User.Username = user["Username"].ToString();
             User.First_Name = user["First_Name"].ToString();
             User.Last_Name = user["Last_Name"].ToString();
@@ -70,12 +71,12 @@ namespace E_Shop
 
         private (string Username, string Password) GetUserData()
         {
-            return (username_TextBox.Texts.Trim(), password_TextBox.Texts.Trim());
+            return (Username: username_TextBox.Texts.Trim(), Password: password_TextBox.Texts.Trim());
         }
 
         private bool GetAndValidateUser(string username, string password, out DataRow user)
         {
-            DataRow[] users = this.e_Shop_DatabaseDataSet.Users.Select($"Username = '{username.Replace("'", "''")}'");
+            DataRow[] users = this.e_Shop_DatabaseDataSet.Users.Select(filterExpression: $"Username = '{username.Replace(oldValue: "'", newValue: "''")}'");
 
             if (users.Length == 0)
             {
@@ -86,7 +87,7 @@ namespace E_Shop
             user = users[0];
             string storedPassword = user["Password"].ToString().Trim();
 
-            string enteredHashedPassword = HashHelper.HashPassword(password);
+            string enteredHashedPassword = HashHelper.HashPassword(password: password);
 
             return storedPassword == enteredHashedPassword;
         }
@@ -97,9 +98,10 @@ namespace E_Shop
 
         private void SubscribeMethods()
         {
-            new A_Form(this).Apply(signIn_Panel);
-            this.registerButton.Click += (s, e) => A_Button.OpenForm<SignUp_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+            new A_Form(form: this).Apply(panels: new Panel[] { signIn_Panel });
+
+            this.registerButton.Click += (sender, eventArgs) => A_Button.OpenForm<SignUp_Form>(currentForm: this);
+            this.exitButton.Click += async (sender, eventArgs) => await A_Button.ExitApplication(form: this);
         }
 
         #endregion
