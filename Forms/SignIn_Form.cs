@@ -5,8 +5,6 @@ using E_Shop.Components;
 using System;
 using System.Data;
 using System.Windows.Forms;
-using System.Threading.Tasks;
-using E_Shop.Forms.Sub_Forms;
 
 namespace E_Shop
 {
@@ -22,52 +20,43 @@ namespace E_Shop
 
         private void SignIn_Form_Load(object sender, EventArgs e)
         {
-            this.usersTableAdapter.Fill(dataTable: this.e_Shop_DatabaseDataSet.Users);
+            this.usersTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Users);
         }
 
         private async void SignIn_Button_Click(object sender, EventArgs e)
         {
-            (string username, string password) = GetUserData();
+            var (username, password) = GetUserData();
 
-            if (string.IsNullOrEmpty(value: username) || string.IsNullOrEmpty(value: password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                await MessageHelper.Print(message: "Please fill out all fields!", label: output_Label, type: MessageType.Warning);
+                await MessageHelper.Print("Please fill out all fields!", label: output_Label, type: MessageType.Warning);
                 return;
             }
 
             try
             {
-                bool isValidUser = GetAndValidateUser(username: username, password: password, user: out DataRow user);
+                bool isValidUser = GetAndValidateUser(username, password, out DataRow user);
 
                 if (!isValidUser)
                 {
-                    await MessageHelper.Print(message: "Invalid username or password!", label: output_Label, type: MessageType.Error);
+                    await MessageHelper.Print("Invalid username or password!", label: output_Label, type: MessageType.Error);
                     return;
                 }
 
-                LogInUser(user: user);
+                Session.SignIn(user);
 
-                await MessageHelper.Print(message: "Success", label: output_Label, type: MessageType.Success);
+                await MessageHelper.Print("Success", label: output_Label, type: MessageType.Success);
                 A_Button.OpenForm<Shop_Form>(currentForm: this);
             }
             catch (Exception ex)
             {
-                await MessageHelper.Print(message: ex.Message, label: output_Label, type: MessageType.Error);
+                await MessageHelper.Print(ex.Message, label: output_Label, type: MessageType.Error);
             }
         }
 
         #endregion
 
         #region -> User Methods
-
-        private static void LogInUser(DataRow user)
-        {
-            User.Id = Convert.ToInt32(value: user["Id"]);
-            User.Username = user["Username"].ToString();
-            User.First_Name = user["First_Name"].ToString();
-            User.Last_Name = user["Last_Name"].ToString();
-            User.Privilege = user["Privilege"].ToString();
-        }
 
         private (string Username, string Password) GetUserData()
         {
@@ -76,7 +65,7 @@ namespace E_Shop
 
         private bool GetAndValidateUser(string username, string password, out DataRow user)
         {
-            DataRow[] users = this.e_Shop_DatabaseDataSet.Users.Select(filterExpression: $"Username = '{username.Replace(oldValue: "'", newValue: "''")}'");
+            DataRow[] users = this.e_Shop_DatabaseDataSet.Users.Select($"Username = '{username.Replace(oldValue: "'", newValue: "''")}'");
 
             if (users.Length == 0)
             {

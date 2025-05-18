@@ -55,11 +55,11 @@ namespace E_Shop.Components
 
             path.StartFigure();
 
-            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90); // Top-left
-            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90); // Top-right
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);                                 // Top-left
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);                 // Top-right
 
-            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90); // Bottom-right
-            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90); // Bottom-left
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);  // Bottom-right
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);                 // Bottom-left
 
             path.CloseFigure();
             return path;
@@ -82,7 +82,7 @@ namespace E_Shop.Components
 
         private void DrawRoundedWindow(PaintEventArgs pevent, Rectangle rectSurface, Rectangle rectBorder, int smoothSize)
         {
-            int safeBorderRadius = Math.Max(0, _borderRadius - _borderSize); // Prevent negative values
+            int safeBorderRadius = Math.Max(0, _borderRadius - _borderSize);
 
             using (GraphicsPath pathSurface = GetFigurePath(rectSurface, _borderRadius))
             using (GraphicsPath pathBorder = GetFigurePath(rectBorder, safeBorderRadius))
@@ -150,7 +150,7 @@ namespace E_Shop.Components
         private void OpenProductPage(object sender, EventArgs e)
         {
             _parentForm.Close();
-            Product_Form form = new Product_Form(_product, _amount);
+            Product_Form form = new Product_Form(_product, _amount, _parentForm);
             {
                 form.StartPosition = FormStartPosition.Manual;
                 form.Location = _parentForm.Location;

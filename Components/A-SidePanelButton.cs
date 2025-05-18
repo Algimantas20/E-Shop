@@ -25,6 +25,7 @@ namespace E_Shop.Components
             this.FlatAppearance.MouseOverBackColor = Color.FromArgb(49, 51, 56);
 
         }
+
         #region -> Properties
         public Icon Button_Icon
         {

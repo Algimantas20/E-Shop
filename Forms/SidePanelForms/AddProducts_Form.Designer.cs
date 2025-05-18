@@ -46,11 +46,13 @@
             this.signUp_Label = new System.Windows.Forms.Label();
             this.productName_TextBox = new E_Shop.Components.A_TexBox();
             this.side_Panel = new System.Windows.Forms.Panel();
+            this.orderDB_Button = new E_Shop.Components.A_SidePanelButton();
+            this.userPrivilige_Button = new E_Shop.Components.A_SidePanelButton();
             this.addProducts_Button = new E_Shop.Components.A_SidePanelButton();
             this.viewCart_Button = new E_Shop.Components.A_SidePanelButton();
             this.shop_Button = new E_Shop.Components.A_SidePanelButton();
             this.signOut_Button = new E_Shop.Components.A_Button();
-            this.manageUserPrivilige_Button = new E_Shop.Components.A_SidePanelButton();
+            this.output_Label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.e_Shop_DatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource)).BeginInit();
             this.addProduct_Panel.SuspendLayout();
@@ -278,7 +280,8 @@
             // side_Panel
             // 
             this.side_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.side_Panel.Controls.Add(this.manageUserPrivilige_Button);
+            this.side_Panel.Controls.Add(this.orderDB_Button);
+            this.side_Panel.Controls.Add(this.userPrivilige_Button);
             this.side_Panel.Controls.Add(this.addProducts_Button);
             this.side_Panel.Controls.Add(this.viewCart_Button);
             this.side_Panel.Controls.Add(this.shop_Button);
@@ -289,6 +292,41 @@
             this.side_Panel.Name = "side_Panel";
             this.side_Panel.Size = new System.Drawing.Size(183, 600);
             this.side_Panel.TabIndex = 6;
+            // 
+            // orderDB_Button
+            // 
+            this.orderDB_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.orderDB_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("orderDB_Button.Button_Icon")));
+            this.orderDB_Button.FlatAppearance.BorderSize = 0;
+            this.orderDB_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.orderDB_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.orderDB_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.orderDB_Button.ForeColor = System.Drawing.Color.Silver;
+            this.orderDB_Button.IsActive = false;
+            this.orderDB_Button.Location = new System.Drawing.Point(0, 346);
+            this.orderDB_Button.Name = "orderDB_Button";
+            this.orderDB_Button.Size = new System.Drawing.Size(183, 40);
+            this.orderDB_Button.TabIndex = 11;
+            this.orderDB_Button.Text = "Order Database";
+            this.orderDB_Button.UseVisualStyleBackColor = false;
+            // 
+            // userPrivilige_Button
+            // 
+            this.userPrivilige_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.userPrivilige_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("userPrivilige_Button.Button_Icon")));
+            this.userPrivilige_Button.FlatAppearance.BorderSize = 0;
+            this.userPrivilige_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
+            this.userPrivilige_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.userPrivilige_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.userPrivilige_Button.ForeColor = System.Drawing.Color.Silver;
+            this.userPrivilige_Button.IsActive = false;
+            this.userPrivilige_Button.Location = new System.Drawing.Point(0, 290);
+            this.userPrivilige_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.userPrivilige_Button.Name = "userPrivilige_Button";
+            this.userPrivilige_Button.Size = new System.Drawing.Size(183, 49);
+            this.userPrivilige_Button.TabIndex = 7;
+            this.userPrivilige_Button.Text = "User Priviliges";
+            this.userPrivilige_Button.UseVisualStyleBackColor = false;
             // 
             // addProducts_Button
             // 
@@ -363,25 +401,15 @@
             this.signOut_Button.Text = "Sign out";
             this.signOut_Button.TextColor = System.Drawing.Color.Silver;
             this.signOut_Button.UseVisualStyleBackColor = false;
-            this.signOut_Button.Click += new System.EventHandler(this.SignOut_Button_Click);
             // 
-            // manageUserPrivilige_Button
+            // output_Label
             // 
-            this.manageUserPrivilige_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.manageUserPrivilige_Button.Button_Icon = ((System.Drawing.Icon)(resources.GetObject("manageUserPrivilige_Button.Button_Icon")));
-            this.manageUserPrivilige_Button.FlatAppearance.BorderSize = 0;
-            this.manageUserPrivilige_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
-            this.manageUserPrivilige_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.manageUserPrivilige_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.manageUserPrivilige_Button.ForeColor = System.Drawing.Color.Silver;
-            this.manageUserPrivilige_Button.IsActive = false;
-            this.manageUserPrivilige_Button.Location = new System.Drawing.Point(0, 290);
-            this.manageUserPrivilige_Button.Margin = new System.Windows.Forms.Padding(4);
-            this.manageUserPrivilige_Button.Name = "manageUserPrivilige_Button";
-            this.manageUserPrivilige_Button.Size = new System.Drawing.Size(183, 49);
-            this.manageUserPrivilige_Button.TabIndex = 7;
-            this.manageUserPrivilige_Button.Text = "User Priviliges";
-            this.manageUserPrivilige_Button.UseVisualStyleBackColor = false;
+            this.output_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.output_Label.Location = new System.Drawing.Point(250, 514);
+            this.output_Label.Name = "output_Label";
+            this.output_Label.Size = new System.Drawing.Size(664, 36);
+            this.output_Label.TabIndex = 7;
+            this.output_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AddProducts_Form
             // 
@@ -389,6 +417,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.output_Label);
             this.Controls.Add(this.side_Panel);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.addProduct_Panel);
@@ -430,6 +459,8 @@
         private Components.A_SidePanelButton viewCart_Button;
         private Components.A_SidePanelButton shop_Button;
         private Components.A_Button signOut_Button;
-        private Components.A_SidePanelButton manageUserPrivilige_Button;
+        private Components.A_SidePanelButton userPrivilige_Button;
+        private Components.A_SidePanelButton orderDB_Button;
+        private System.Windows.Forms.Label output_Label;
     }
 }

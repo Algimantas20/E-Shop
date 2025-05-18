@@ -10,7 +10,7 @@ namespace E_Shop.Classes
         {
             label.Text = string.Empty;
 
-            await Task.Delay(50);
+            await Task.Delay(200);
 
             label.Text = message;
 

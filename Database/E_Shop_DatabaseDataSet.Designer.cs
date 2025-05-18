@@ -392,6 +392,8 @@ namespace E_Shop.Database {
             
             private global::System.Data.DataColumn columnOrder_Date;
             
+            private global::System.Data.DataColumn columnOrder_Amount;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public OrdersDataTable() {
@@ -459,6 +461,14 @@ namespace E_Shop.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn Order_AmountColumn {
+                get {
+                    return this.columnOrder_Amount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -494,13 +504,14 @@ namespace E_Shop.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public OrdersRow AddOrdersRow(int User_Id, int Product_Id, System.DateTime Order_Date) {
+            public OrdersRow AddOrdersRow(int User_Id, int Product_Id, System.DateTime Order_Date, int Order_Amount) {
                 OrdersRow rowOrdersRow = ((OrdersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         User_Id,
                         Product_Id,
-                        Order_Date};
+                        Order_Date,
+                        Order_Amount};
                 rowOrdersRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrdersRow);
                 return rowOrdersRow;
@@ -534,6 +545,7 @@ namespace E_Shop.Database {
                 this.columnUser_Id = base.Columns["User_Id"];
                 this.columnProduct_Id = base.Columns["Product_Id"];
                 this.columnOrder_Date = base.Columns["Order_Date"];
+                this.columnOrder_Amount = base.Columns["Order_Amount"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -547,6 +559,8 @@ namespace E_Shop.Database {
                 base.Columns.Add(this.columnProduct_Id);
                 this.columnOrder_Date = new global::System.Data.DataColumn("Order_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrder_Date);
+                this.columnOrder_Amount = new global::System.Data.DataColumn("Order_Amount", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrder_Amount);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -556,6 +570,7 @@ namespace E_Shop.Database {
                 this.columnUser_Id.AllowDBNull = false;
                 this.columnProduct_Id.AllowDBNull = false;
                 this.columnOrder_Date.AllowDBNull = false;
+                this.columnOrder_Amount.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1718,6 +1733,17 @@ namespace E_Shop.Database {
                     this[this.tableOrders.Order_DateColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int Order_Amount {
+                get {
+                    return ((int)(this[this.tableOrders.Order_AmountColumn]));
+                }
+                set {
+                    this[this.tableOrders.Order_AmountColumn] = value;
+                }
+            }
         }
         
         /// <summary>
@@ -2274,40 +2300,45 @@ namespace E_Shop.Database.E_Shop_DatabaseDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("User_Id", "User_Id");
             tableMapping.ColumnMappings.Add("Product_Id", "Product_Id");
             tableMapping.ColumnMappings.Add("Order_Date", "Order_Date");
+            tableMapping.ColumnMappings.Add("Order_Amount", "Order_Amount");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Orders] WHERE (([Id] = @Original_Id) AND ([User_Id] = @Origina" +
-                "l_User_Id) AND ([Product_Id] = @Original_Product_Id) AND ([Order_Date] = @Origin" +
-                "al_Order_Date))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Orders] WHERE (([Id] = @Original_Id) AND ([User_Id] = @Original_User" +
+                "_Id) AND ([Product_Id] = @Original_Product_Id) AND ([Order_Date] = @Original_Ord" +
+                "er_Date) AND ([Order_Amount] = @Original_Order_Amount))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_User_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Product_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Product_Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Order_Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Order_Amount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Amount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Orders] ([Id], [User_Id], [Product_Id], [Order_Date]) VALUES (" +
-                "@Id, @User_Id, @Product_Id, @Order_Date);\r\nSELECT Id, User_Id, Product_Id, Order" +
-                "_Date FROM Orders WHERE (Id = @Id)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Orders] ([Id], [User_Id], [Product_Id], [Order_Date], [Order_Amount]" +
+                ") VALUES (@Id, @User_Id, @Product_Id, @Order_Date, @Order_Amount);\r\nSELECT Id, U" +
+                "ser_Id, Product_Id, Order_Date, Order_Amount FROM Orders WHERE (Id = @Id)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Product_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Product_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Order_Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Order_Amount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Amount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Orders] SET [Id] = @Id, [User_Id] = @User_Id, [Product_Id] = @Product_Id, [Order_Date] = @Order_Date WHERE (([Id] = @Original_Id) AND ([User_Id] = @Original_User_Id) AND ([Product_Id] = @Original_Product_Id) AND ([Order_Date] = @Original_Order_Date));
-SELECT Id, User_Id, Product_Id, Order_Date FROM Orders WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Orders] SET [Id] = @Id, [User_Id] = @User_Id, [Product_Id] = @Product_Id, [Order_Date] = @Order_Date, [Order_Amount] = @Order_Amount WHERE (([Id] = @Original_Id) AND ([User_Id] = @Original_User_Id) AND ([Product_Id] = @Original_Product_Id) AND ([Order_Date] = @Original_Order_Date) AND ([Order_Amount] = @Original_Order_Amount));
+SELECT Id, User_Id, Product_Id, Order_Date, Order_Amount FROM Orders WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Product_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Product_Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Order_Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Order_Amount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Amount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_User_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User_Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Product_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Product_Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Order_Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Order_Amount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Order_Amount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2323,7 +2354,7 @@ SELECT Id, User_Id, Product_Id, Order_Date FROM Orders WHERE (Id = @Id)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, User_Id, Product_Id, Order_Date FROM dbo.Orders";
+            this._commandCollection[0].CommandText = "SELECT Id, User_Id, Product_Id, Order_Date, Order_Amount FROM Orders";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2384,11 +2415,12 @@ SELECT Id, User_Id, Product_Id, Order_Date FROM Orders WHERE (Id = @Id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, int Original_User_Id, int Original_Product_Id, System.DateTime Original_Order_Date) {
+        public virtual int Delete(int Original_Id, int Original_User_Id, int Original_Product_Id, System.DateTime Original_Order_Date, int Original_Order_Amount) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_User_Id));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_Product_Id));
             this.Adapter.DeleteCommand.Parameters[3].Value = ((System.DateTime)(Original_Order_Date));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_Order_Amount));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2409,11 +2441,12 @@ SELECT Id, User_Id, Product_Id, Order_Date FROM Orders WHERE (Id = @Id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Id, int User_Id, int Product_Id, System.DateTime Order_Date) {
+        public virtual int Insert(int Id, int User_Id, int Product_Id, System.DateTime Order_Date, int Order_Amount) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(User_Id));
             this.Adapter.InsertCommand.Parameters[2].Value = ((int)(Product_Id));
             this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(Order_Date));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(Order_Amount));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2434,15 +2467,17 @@ SELECT Id, User_Id, Product_Id, Order_Date FROM Orders WHERE (Id = @Id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Id, int User_Id, int Product_Id, System.DateTime Order_Date, int Original_Id, int Original_User_Id, int Original_Product_Id, System.DateTime Original_Order_Date) {
+        public virtual int Update(int Id, int User_Id, int Product_Id, System.DateTime Order_Date, int Order_Amount, int Original_Id, int Original_User_Id, int Original_Product_Id, System.DateTime Original_Order_Date, int Original_Order_Amount) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(User_Id));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Product_Id));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(Order_Date));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Id));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_User_Id));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Product_Id));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_Order_Date));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Order_Amount));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_User_Id));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Product_Id));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_Order_Date));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Order_Amount));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2463,8 +2498,8 @@ SELECT Id, User_Id, Product_Id, Order_Date FROM Orders WHERE (Id = @Id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int User_Id, int Product_Id, System.DateTime Order_Date, int Original_Id, int Original_User_Id, int Original_Product_Id, System.DateTime Original_Order_Date) {
-            return this.Update(Original_Id, User_Id, Product_Id, Order_Date, Original_Id, Original_User_Id, Original_Product_Id, Original_Order_Date);
+        public virtual int Update(int User_Id, int Product_Id, System.DateTime Order_Date, int Order_Amount, int Original_Id, int Original_User_Id, int Original_Product_Id, System.DateTime Original_Order_Date, int Original_Order_Amount) {
+            return this.Update(Original_Id, User_Id, Product_Id, Order_Date, Order_Amount, Original_Id, Original_User_Id, Original_Product_Id, Original_Order_Date, Original_Order_Amount);
         }
     }
     

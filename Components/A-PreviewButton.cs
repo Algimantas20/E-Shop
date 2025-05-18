@@ -5,7 +5,11 @@ namespace E_Shop.Components
 {
     public partial class A_PreviewButton : A_Button
     {
+        #region -> Variables
+
         private Icon _icon;
+
+        #endregion
 
         public A_PreviewButton()
         {
@@ -23,6 +27,7 @@ namespace E_Shop.Components
             this.BackColor = Color.LightGray;
             this.ForeColor = Color.Black;
         }
+
         #region -> Properties
         public Icon Button_Icon
         {

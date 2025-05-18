@@ -49,7 +49,9 @@ namespace E_Shop.Components
             this.BackColor = Color.White;
             this.Size = new Size(100, 100);
         }
+
         #region -> Public Methods
+
         public static void ClearPanel(A_Panel panel)
         {
             //if (panel == null)

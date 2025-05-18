@@ -12,7 +12,7 @@ namespace E_Shop.Forms.Sub_Forms
             InitializeComponent();
             SubscribeMethods();
 
-            GetImageFromFile(filePath: filePath);
+            GetImageFromFile(filePath);
         }
 
         #region -> Private Methods
@@ -20,14 +20,14 @@ namespace E_Shop.Forms.Sub_Forms
         {
             try
             {
-                if (File.Exists(path: filePath))
+                if (File.Exists(filePath))
                 {
-                    Image image = Image.FromFile(filename: filePath);
+                    Image image = Image.FromFile(filePath);
                     picture_PictureBox.BackgroundImage = image;
                 }
                 else
                 {
-                    MessageBox.Show(text: "Image file not found!");
+                    MessageBox.Show("Image file not found!");
                 }
             }
             catch (Exception ex)

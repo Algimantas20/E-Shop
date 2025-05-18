@@ -26,7 +26,7 @@ namespace E_Shop.Forms
 
         private async void SignIn_Button_Click(object sender, EventArgs e)
         {
-            var (username, password, first_name, last_name, email) = GetUserData();
+             var (username, password, first_name, last_name, email) = GetUserData();
 
             bool isNull = await CheckIfNull(username, password, first_name, last_name, email);
             if (isNull)
@@ -46,11 +46,11 @@ namespace E_Shop.Forms
                 this.usersTableAdapter.Update(e_Shop_DatabaseDataSet.Users);
                 this.e_Shop_DatabaseDataSet.AcceptChanges();
 
-                await MessageHelper.Print("User registered successfully!", error_Label, MessageType.Success);
+                await MessageHelper.Print("User registered successfully!", label: error_Label, type: MessageType.Success);
             }
             catch (Exception ex)
             {
-                await MessageHelper.Print(ex.Message, error_Label, MessageType.Error);
+                await MessageHelper.Print(ex.Message, label: error_Label, type: MessageType.Error);
                 e_Shop_DatabaseDataSet.RejectChanges();
                 return;
             }
@@ -60,7 +60,7 @@ namespace E_Shop.Forms
 
         #region -> Private Methods
 
-        private (string Username , string password, string first_name, string last_name, string email) GetUserData()
+        private (string Username , string Password, string First_name, string Last_name, string Email) GetUserData()
         {
             return (username_TextBox.Texts,
                     password_TextBox.Texts, 
@@ -71,10 +71,10 @@ namespace E_Shop.Forms
 
         private void SubscribeMethods()
         {
-            new A_Form(this).Apply(signUp_Panel);
+            new A_Form(this).Apply(panels: signUp_Panel);
 
-            this.back_Button.Click += (s, e) => A_Button.OpenForm<SignIn_Form>(this);
-            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(this);
+            this.back_Button.Click += (s, e) => A_Button.OpenForm<SignIn_Form>(currentForm: this);
+            this.exitButton.Click += async (s, e) => await A_Button.ExitApplication(form: this);
         }
 
         private async Task<bool> CheckIfNull(string username, string password, string first_name, string last_name, string email)
@@ -87,7 +87,7 @@ namespace E_Shop.Forms
                 string.IsNullOrEmpty(last_name) ||
                 string.IsNullOrEmpty(email))
             {
-                await MessageHelper.Print("Please fill out all boxes", error_Label, MessageType.Warning);
+                await MessageHelper.Print("Please fill out all boxes", label: error_Label, type: MessageType.Warning);
                 return true;
             }
             else
@@ -100,16 +100,15 @@ namespace E_Shop.Forms
         private async Task<bool> ValidateEmail(string email)
         {
             Regex validate_Email = new Regex("^\\S+@\\S+\\.\\S+$");
+
             bool isValidEmail = validate_Email.IsMatch(email);
             if (isValidEmail)
             {
                 return true;
             }
-            else
-            {
-                await MessageHelper.Print("Invalid email", error_Label, MessageType.Error);
-                return false;
-            }
+
+            await MessageHelper.Print("Invalid email", label: error_Label, type: MessageType.Error);
+            return false;
         }
 
         private UsersRow GenerateNewRow(string username, string password, string first_name, string last_name, string email)

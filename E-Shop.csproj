@@ -67,9 +67,16 @@
     <Compile Include="Classes\HashHelper.cs" />
     <Compile Include="Classes\MessageHelper.cs" />
     <Compile Include="Classes\Product.cs" />
+    <Compile Include="Classes\Session.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Components\A-Button.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\A-DelayedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\A-DelayedButton.Designer.cs">
+      <DependentUpon>A-DelayedButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\A-ItemWindow.cs">
       <SubType>UserControl</SubType>
@@ -114,16 +121,22 @@
       <DependentUpon>E_Shop_DatabaseDataSet.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Forms\AddProducts_Form.cs">
+    <Compile Include="Forms\SidePanelForms\AddProducts_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddProducts_Form.Designer.cs">
+    <Compile Include="Forms\SidePanelForms\AddProducts_Form.Designer.cs">
       <DependentUpon>AddProducts_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Shop_Form.cs">
+    <Compile Include="Forms\SidePanelForms\OrderDatabase_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Shop_Form.Designer.cs">
+    <Compile Include="Forms\SidePanelForms\OrderDatabase_Form.Designer.cs">
+      <DependentUpon>OrderDatabase_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SidePanelForms\Shop_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SidePanelForms\Shop_Form.Designer.cs">
       <DependentUpon>Shop_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SignIn_Form.cs">
@@ -150,10 +163,16 @@
     <Compile Include="Forms\Sub-Forms\Product_Form.Designer.cs">
       <DependentUpon>Product_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ViewCart_Form.cs">
+    <Compile Include="Forms\SidePanelForms\UserPriviliges_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ViewCart_Form.Designer.cs">
+    <Compile Include="Forms\SidePanelForms\UserPriviliges_Form.Designer.cs">
+      <DependentUpon>UserPriviliges_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SidePanelForms\ViewCart_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SidePanelForms\ViewCart_Form.Designer.cs">
       <DependentUpon>ViewCart_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -170,10 +189,13 @@
     <EmbeddedResource Include="Components\A-TextBox.resx">
       <DependentUpon>A-TextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddProducts_Form.resx">
+    <EmbeddedResource Include="Forms\SidePanelForms\AddProducts_Form.resx">
       <DependentUpon>AddProducts_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Shop_Form.resx">
+    <EmbeddedResource Include="Forms\SidePanelForms\OrderDatabase_Form.resx">
+      <DependentUpon>OrderDatabase_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SidePanelForms\Shop_Form.resx">
       <DependentUpon>Shop_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SignIn_Form.resx">
@@ -188,7 +210,10 @@
     <EmbeddedResource Include="Forms\Sub-Forms\Product_Form.resx">
       <DependentUpon>Product_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ViewCart_Form.resx">
+    <EmbeddedResource Include="Forms\SidePanelForms\UserPriviliges_Form.resx">
+      <DependentUpon>UserPriviliges_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SidePanelForms\ViewCart_Form.resx">
       <DependentUpon>ViewCart_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

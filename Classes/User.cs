@@ -1,34 +1,36 @@
-﻿namespace E_Shop.Classes
+﻿using System;
+using System.Data;
+
+public class User
 {
-    internal class User
+    public int Id { get; set; }
+    public string Username { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Email { get; set; }
+    public string Privilege { get; set; }
+
+    public User(int id, string username, string firstName, string lastName, string email, string privilege)
     {
-        private static int _id;
-        private static string _username, _first_name, _last_name, _email, _privilege;
-        public User(int id, string username, string first_name, string last_name, string email, string privilege)
-        {
-            Id = id;
-            _username = username;
-            _first_name = first_name;
-            _last_name = last_name;
-            _email = email;
-            _privilege = privilege;
-        }
+        Id = id;
+        Username = username;
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        Privilege = privilege;
+    }
 
-        public static int Id { get => _id; set => _id = value; }
-        public static string Username { get => _username; set => _username = value; }
-        public static string First_Name { get => _first_name; set => _first_name = value; }
-        public static string Last_Name { get => _last_name; set => _last_name = value; }
-        public static string Email { get => _email; set => _email = value; }
-        public static string Privilege { get => _privilege; set => _privilege = value; }
-
-        public static void SignOut()
-        {
-            Id = -1;
-            Username = null;
-            First_Name = null;
-            Last_Name = null;
-            Email = null;
-            Privilege = null;
-        }
+    public static User GetUserByUsername(string username, DataSet table)
+    {
+        var userRow = table.Tables["Users"].Select($"Username = '{username}'")[0];
+        return new User
+        (
+            id: Convert.ToInt32(userRow["Id"]),
+            username: userRow["Username"].ToString(),
+            firstName: userRow["First_Name"].ToString(),
+            lastName: userRow["Last_Name"].ToString(),
+            email: userRow["Email"].ToString(),
+            privilege: userRow["Privilege"].ToString()
+        );
     }
 }

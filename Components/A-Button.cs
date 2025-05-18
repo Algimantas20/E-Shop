@@ -9,65 +9,22 @@ namespace E_Shop.Components
 {
     public class A_Button : Button
     {
-        #region Properties
+        #region -> Variables
+
         private int _borderSize = 0;
-        [Category("Border")]
-        public int BorderSize
-        {
-            get { return _borderSize; }
-            set
-            {
-                _borderSize = Math.Max(0, value); // Prevent negative values
-                this.Invalidate();
-            }
-        }
-
         private int _borderRadius = 20;
-        [Category("Border")]
-        public int BorderRadius
-        {
-            get { return _borderRadius; }
-            set
-            {
-                _borderRadius = Math.Max(0, value); // Prevent negative values
-                this.Invalidate();
-            }
-        }
-
         private Color _borderColor = Color.Black;
-        [Category("Border")]
-        public Color BorderColor
-        {
-            get { return _borderColor; }
-            set
-            {
-                _borderColor = value;
-                this.Invalidate();
-            }
-        }
 
-        [Category("Appearance")]
-        public Color BackgroundColor
-        {
-            get { return this.BackColor; }
-            set { this.BackColor = value; }
-        }
-
-        [Category("Appearance")]
-        public Color TextColor
-        {
-            get { return this.ForeColor; }
-            set { this.ForeColor = value; }
-        }
         #endregion
 
         public A_Button()
         {
             this.FlatStyle = FlatStyle.Flat;
             this.FlatAppearance.BorderSize = 0;
-            this.Size = new Size(150, 40);
             this.BackColor = Color.LightGray;
             this.ForeColor = Color.Black;
+            this.Size = new Size(150, 40);
+
             this.Resize += new EventHandler(Button_Resize);
         }
 
@@ -157,6 +114,7 @@ namespace E_Shop.Components
         {
             this.Invalidate();
         }
+
         public async static void OpenForm<TargetForm>(Form currentForm) where TargetForm : Form, new()
         {
             TargetForm newForm = new TargetForm()
@@ -168,7 +126,7 @@ namespace E_Shop.Components
             newForm.BringToFront();
             await Task.Delay(100);
 
-            if (currentForm.GetType() == typeof(SignIn_Form))
+            if (currentForm is SignIn_Form)
             {
                 currentForm.Hide();
                 return;
@@ -179,11 +137,13 @@ namespace E_Shop.Components
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
+
         private void Button_Resize(object sender, EventArgs e)
         {
             if (_borderRadius > this.Height)
                 _borderRadius = this.Height;
         }
+
         public static async Task ExitApplication(Form form)
         {
             form.Close();
@@ -193,6 +153,57 @@ namespace E_Shop.Components
 
             Environment.Exit(0);
         }
+        #endregion
+
+        #region -> Properties
+
+        [Category("Border")]
+        public int BorderSize
+        {
+            get { return _borderSize; }
+            set
+            {
+                _borderSize = Math.Max(0, value); // Prevent negative values
+                this.Invalidate();
+            }
+        }
+
+        [Category("Border")]
+        public int BorderRadius
+        {
+            get { return _borderRadius; }
+            set
+            {
+                _borderRadius = Math.Max(0, value); // Prevent negative values
+                this.Invalidate();
+            }
+        }
+
+        [Category("Border")]
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set
+            {
+                _borderColor = value;
+                this.Invalidate();
+            }
+        }
+
+        [Category("Appearance")]
+        public Color BackgroundColor
+        {
+            get { return this.BackColor; }
+            set { this.BackColor = value; }
+        }
+
+        [Category("Appearance")]
+        public Color TextColor
+        {
+            get { return this.ForeColor; }
+            set { this.ForeColor = value; }
+        }
+
         #endregion
 
     }

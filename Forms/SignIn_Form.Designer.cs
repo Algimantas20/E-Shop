@@ -52,7 +52,7 @@
             this.exitButton.AutoSize = true;
             this.exitButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(1071, 9);
+            this.exitButton.Location = new System.Drawing.Point(961, 9);
             this.exitButton.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(26, 25);
@@ -214,7 +214,7 @@
             this.AcceptButton = this.signIn_Button;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
-            this.ClientSize = new System.Drawing.Size(1110, 600);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.signIn_Panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

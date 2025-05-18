@@ -7,9 +7,11 @@ using System.Data;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using E_Shop.Forms.SidePanelForms;
+
 using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace E_Shop.Forms
 {
@@ -28,29 +30,19 @@ namespace E_Shop.Forms
             InitializeComponent();
             SubscribeMethods();
 
-            if (User.Privilege != "Admin")
-                addProducts_Button.Visible = false;
+            if (Session.User.Privilege != "Admin")
+            {
+                userPrivilige_Button.Visible = false;
+                orderDB_Button.Visible = false;
+            }
         }
 
         #region -> Event Handlers
 
         private async void Shop_Form_Load(object sender, EventArgs e)
         {
-            this.productsTableAdapter.Fill(dataTable: this.e_Shop_DatabaseDataSet.Products);
+            this.productsTableAdapter.Fill(this.e_Shop_DatabaseDataSet.Products);
             await GenerateItemWindowsAsync();
-        }
-
-        private async void SignOut_Button_Click(object sender, EventArgs e)
-        {
-            User.SignOut();
-            SignIn_Form form = new SignIn_Form
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = this.Location
-            };
-            form.Show();
-            await Task.Delay(millisecondsDelay: 2);
-            this.Hide();
         }
 
         #endregion
@@ -60,21 +52,27 @@ namespace E_Shop.Forms
         private void SubscribeMethods()
         {
             new A_Form(form: this).Apply(panels: new Panel[] { shop_Panel, side_Panel });
+            this.FormClosing += (sender, eventArgs) => A_Panel.ClearPanel(panel: shop_Panel);
 
             this.addProducts_Button.Click += (sender, eventArgs) => A_Button.OpenForm<AddProducts_Form>(currentForm: this);
             this.viewCart_Button.Click += (sender, eventArgs) => A_Button.OpenForm<ViewCart_Form>(currentForm: this);
+            this.userPrivilige_Button.Click += (sender, eventArgs) => A_Button.OpenForm<UserPriviliges_Form>(currentForm: this);
             this.exitButton.Click += async (sender, eventArgs) => await A_Button.ExitApplication(form: this);
+            this.orderDB_Button.Click += (sender, eventArgs) => A_Button.OpenForm<OrderDatabase_Form>(currentForm: this);
+            this.signOut_Button.Click += (sender, eventArgs) =>
+            {
+                Session.SignOut();
+                A_Button.OpenForm<SignIn_Form>(currentForm: this);
+            };
 
-            //this.FormClosing += (sender, eventArgs) => A_Panel.ClearPanel(panel: shop_Panel);
         }
 
         private async Task GenerateItemWindowsAsync()
         {
-            List<Product> products = await Task.Run(function: GetProducts);
+            List<Product> products = await Task.Run(GetProducts);
 
             if (products == null || products.Count == 0)
-            {
-                Debug.WriteLine(message: "No products found in cart.");
+            { 
                 return;
             }
 
@@ -83,10 +81,10 @@ namespace E_Shop.Forms
 
             int itemsPerRow = Math.Max(val1: 1, val2: (shop_Panel.Width - _itemSpacing) / (_itemWidth + _itemSpacing));
 
-            IEnumerable<A_ItemWindow> itemWindows = GenerateItemWindows(products: products, itemsPerRow: itemsPerRow);
+            IEnumerable<A_ItemWindow> itemWindows = GenerateItemWindows(products, itemsPerRow);
 
             itemWindows.ToList()
-                .ForEach(action: item => shop_Panel.Controls.Add(value: item));
+                .ForEach(item => shop_Panel.Controls.Add(item));
 
             shop_Panel.ResumeLayout();
             shop_Panel.Refresh();
@@ -94,7 +92,7 @@ namespace E_Shop.Forms
 
         private IEnumerable<A_ItemWindow> GenerateItemWindows(List<Product> products, int itemsPerRow)
         {
-            return products.Select(selector: (product, index) =>
+            return products.Select((product, index) =>
                 new A_ItemWindow(product: product, parentForm: this)
                 {
                     Location = new Point(
@@ -121,13 +119,13 @@ namespace E_Shop.Forms
 
                 foreach (DataRow row in table.Rows)
                 {
-                    Product product = FormAProduct(product: row);
-                    formattedProducts.Add(item: product);
+                    Product product = FormAProduct(row);
+                    formattedProducts.Add(product);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(message: $"Error fetching products: {ex.Message}");
+                throw new Exception($"Error fetching products: {ex.Message}");
             }
 
             return formattedProducts;
@@ -142,17 +140,16 @@ namespace E_Shop.Forms
             try
             {
                 return new Product(
-                    Id: int.Parse(s: product["Id"].ToString()),
+                    Id: int.Parse(product["Id"].ToString()),
                     title: product["Product_Name"].ToString(),
                     description: product["Product_Description"].ToString(),
-                    price: float.Parse(s: product["Product_Price"].ToString()),
-                    image: BinaryToImage(binaryData: product["Product_Image"] as byte[])
+                    price: float.Parse(product["Product_Price"].ToString()),
+                    image: BinaryToImage(product["Product_Image"] as byte[])
                 );
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(message: $"Error forming product: {ex.Message}");
-                throw;
+                throw new Exception($"Error forming product: {ex.Message}");
             }
         }
 
@@ -160,15 +157,15 @@ namespace E_Shop.Forms
         {
             if (binaryData == null || binaryData.Length == 0)
             {
-                Debug.WriteLine(message: "Binary data is empty or null.");
+                Debug.WriteLine("Binary data is empty or null.");
                 return null;
             }
 
             try
             {
-                using (MemoryStream memStream = new MemoryStream(buffer: binaryData))
+                using (MemoryStream memStream = new MemoryStream(binaryData))
                 {
-                    Image img = Image.FromStream(stream: memStream, useEmbeddedColorManagement: false, validateImageData: true);
+                    Image img = Image.FromStream(memStream, useEmbeddedColorManagement: false, validateImageData: true);
                     return img;
                 }
             }

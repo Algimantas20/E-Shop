@@ -5,15 +5,18 @@ namespace E_Shop.Components
 {
     partial class A_ItemWindow
     {
-        private System.ComponentModel.IContainer components;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+
         protected override void Dispose(bool disposing)
         {
-            components?.Dispose();
             base.Dispose(disposing);
         }
 
