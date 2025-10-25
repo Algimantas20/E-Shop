@@ -50,18 +50,6 @@ E-Shop is a comprehensive e-commerce application built using C#. It provides a u
     dotnet run
     ```
 
-### Alternative Installation Methods
-- **Docker**: Use Docker to containerize the application.
-- **Package Managers**: Use NuGet to manage dependencies.
-
-## 🎯 Usage
-
-### Basic Usage
-```csharp
-// Example of adding a product
-Product product = new Product(1, "Example Product", "This is an example product.", 19.99f, image);
-```
-
 ### Advanced Usage
 - **Configuration**: Modify the `app.config` file to change database connection settings.
 - **API Documentation**: Refer to the API documentation for more advanced usage.
@@ -107,40 +95,3 @@ E-Shop/
 │   ├── Settings.Designer.cs
 └── README.md
 ```
-
-## 🔧 Configuration
-- **Environment Variables**: Set up environment variables for database connection strings.
-- **Configuration Files**: Modify the `app.config` file for application settings.
-
-## 🤝 Contributing
-- Fork the repository.
-- Create a new branch for your feature or bug fix.
-- Write clean, well-documented code.
-- Submit a pull request.
-
-## 📝 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors & Contributors
-- **Maintainers**: [Your Name]
-- **Contributors**: [List of contributors]
-
-## 🐛 Issues & Support
-- Report issues on the [GitHub Issues page](https://github.com/yourusername/E-Shop/issues).
-- For support, contact [Your Email].
-
-## 🗺️ Roadmap
-- **Planned Features**: Add support for multiple payment gateways.
-- **Known Issues**: Fix bug with product image loading.
-- **Future Improvements**: Implement user reviews and ratings.
-
----
-
-**Additional Guidelines:**
-- Use modern markdown features (badges, collapsible sections, etc.)
-- Include practical, working code examples
-- Make it visually appealing with appropriate emojis
-- Ensure all code snippets are syntactically correct for C#
-- Include relevant badges (build status, version, license, etc.)
-- Make installation instructions copy-pasteable
-- Focus on clarity and developer experience
